@@ -1,0 +1,24 @@
+[
+    {
+    "id": 1,
+    "username": "contact.prizoners.com",
+    "password": "paris"
+    },
+
+    {
+    "id": 2,
+    "username": "bordeaux.prizoners.com",
+    "password": "bordeaux"
+    },
+    {
+    "id": 3,
+    "username": "puget.prizoners.com",
+    "password": "puget"
+    },
+    {
+    "id": 4,
+    "username": "grenoble.prizoners.com",
+    "password": "grenoble"
+    }
+
+]
