@@ -1,0 +1,30 @@
+body{
+    background-image: url('/images/fond.jpeg');
+    /* background-repeat: no-repeat;
+    background-size: cover; */
+}
+
+#login {
+    background-color: black;
+    width: 50%;
+    height: 100vh;
+    margin: auto
+}
+
+input {
+    width : 60%;
+    height: 20px;
+    padding: 6px;
+    margin: 20px
+}
+
+button {
+    width: 40%;
+    height: 40px;
+    padding: 6px;
+    background-color: #F8A907;
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 20px
+}
+

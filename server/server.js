@@ -11,6 +11,8 @@ app.use(cors()); // pour autoriser le fetch
 app.use(express.json()); // pour parser les données recus par le body en format json
 app.use(express.urlencoded({ extended: false }));
 
+// app.use(express.static(__dirname + '/public/')); 
+
 app.use("./route/users.js", users);
 app.use("./route/cards.js", cards);
 
