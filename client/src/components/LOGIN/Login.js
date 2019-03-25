@@ -7,9 +7,9 @@ class Login extends Component {
         return (
             <div id="login">
                 <Logo />
-                <input placeholder="enter your username" />
-                <input placeholder="enter your password" />
-                <button>LOGIN</button>
+                <input type="text" placeholder="enter your username" />
+                <input type="password" placeholder="enter your password" />
+                <button  onClick={() => console.log("i was clicked")}>LOGIN</button>
             </div>
         );
     }
