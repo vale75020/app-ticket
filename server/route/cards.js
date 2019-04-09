@@ -18,13 +18,13 @@ app.get("/cards", (req, res) => {
     res.status(200).send(_cards);
   });
   
-  app.get("/cards/:id", (req, res) => {
-    const id = req.params.id; // pour recuperer l'id
-    const card = _cards.find(card => card.id == id); // comparer l'id donné avec celui de la card
-    if (card) res.status(200).send(card);
-    else res.status(404).send("Card not found");
-    //console.log(card)
-  });
+  // app.get("/cards/:id", (req, res) => {
+  //   const id = req.params.id; // pour recuperer l'id
+  //   const card = _cards.find(card => card.id == id); // comparer l'id donné avec celui de la card
+  //   if (card) res.status(200).send(card);
+  //   else res.status(404).send("Card not found");
+  //   //console.log(card)
+  // });
   
   app.post("/card", (req, res) => {
     // creer une nouvelle card
