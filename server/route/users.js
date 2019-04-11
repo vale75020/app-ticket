@@ -1,6 +1,9 @@
 const express = require("express"); // import express
-let _users = require("../users.json");
+//let _users = require("../users.json");
 const cors = require('cors')
+
+const User = require('../models/user.model')
+const jwt = require("jsonwebtoken");
 
 var app = express(); // creation app express
 
@@ -8,12 +11,55 @@ app.use(cors()); // pour autoriser le fetch
 app.use(express.json()); // pour parser les données recus par le body en format json
 app.use(express.urlencoded({ extended: false }));
 
-function userExist(id) {
-    const user = _users.find(user => user.id == id);
-    return user;
+
+// function userExist(id) {
+//   const user = _users.find(user => user.id == id);
+//   return user;
+// }
+
+
+
+app.post("/login", (req, res) => {
+
+  const user = {
+    username: req.body.username,
+    password: req.body.password
+  };
+  console.log(user.password);
+
+  jwt.sign({ user }, "secretkey", { expiresIn: '30s' }, (err, token) => {
+    // user:user
+    res.json({
+      token // token: token
+    }); // post => res = token
+  });
+})
+
+// Verify Token
+function verifyToken(req, res, next) {
+  // get auth header value - we send token in the header and verify authorization value
+  const bearerHeader = req.headers["authorization"];
+  // check if bearer is undefined
+  if (typeof bearerHeader !== "undefined") {
+    // Split at the space
+    const bearer = bearerHeader.split(" ");
+    // Get token from array
+    const bearerToken = bearer[1];
+    // Set the token
+    req.token = bearerToken;
+    // Next middleware
+    next();
+  } else {
+    // Forbidden
+    res.sendStatus(403);
   }
+}
+
+
+
+
   
-app.get("/users", (req, res) => {
+app.get("/", (req, res) => {
     //middleware express
     res.status(200).send(_users);
   });

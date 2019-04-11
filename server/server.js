@@ -13,8 +13,8 @@ app.use(express.urlencoded({ extended: false }));
 
 // app.use(express.static(__dirname + '/public/')); 
 
-app.use("./route/users.js", users);
-app.use("./route/cards.js", cards);
+app.use("/users", users);
+app.use("./route/", cards);
 
 
 app.listen(3333, () => {
