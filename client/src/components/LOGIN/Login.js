@@ -5,7 +5,7 @@ import "./login.css"
 class Login extends Component {
     render() {
         return (
-            <div id="login">
+            <div className="login">
                 <Logo />
                 <input type="text" placeholder="enter your username" />
                 <input type="password" placeholder="enter your password" />
