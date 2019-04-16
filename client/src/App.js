@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Login from "./components/LOGIN/Login";
 import AdminCards from "./components/ADMINCARDS/AdminCards";
 import "./App.css";

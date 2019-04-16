@@ -3,7 +3,7 @@ import { Card, CardTitle, CardText, CardActions, Button } from 'react-mdl';
 import "./UserCard.css";
 
 const UserCard = (props) => {
-    const {title , text, step} = props
+    const {title , text, status} = props
 
     function showDetails() {
     console.log("details")
@@ -18,7 +18,7 @@ const UserCard = (props) => {
             </CardTitle>
             <CardTitle style={{backgroundColor: "#e67e22", color:"black"}}>
             <h2 style={{margin:"0 auto",lineHeight:"inherit", fontSize:"14px"}}>
-                    {step}
+                    {status}
                 </h2>
             </CardTitle>
             <CardText style={{padding:"inherit",width:"100%",height: '100%', color: "black", fontSize:"12px", backgroundColor:"#ecf0f1"}}>

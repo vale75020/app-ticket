@@ -6,23 +6,23 @@ import UserCard from "../UserCard";
 class AdminCards extends Component {
   render() {
     const validate = cardTab.map(arg => {
-      if (arg.step === "to-validate") {
-        return  <UserCard id ={arg.id} title={arg.title} text={arg.text} step={arg.step} />;
+      if (arg.status === "to-validate") {
+        return  <UserCard id ={arg.id} title={arg.title} text={arg.text} status={arg.status} />;
       }
     });
     const todo = cardTab.map(arg => {
-      if (arg.step === "to-do") {
-        return <UserCard id ={arg.id} title={arg.title} text={arg.text} step={arg.step}/>;
+      if (arg.status === "to-do") {
+        return <UserCard id ={arg.id} title={arg.title} text={arg.text} status={arg.status}/>;
       }
     });
     const doing = cardTab.map(arg => {
-      if (arg.step === "doing") {
-        return  <UserCard id ={arg.id} title={arg.title} text={arg.text} step={arg.step}/>;
+      if (arg.status === "doing") {
+        return  <UserCard id ={arg.id} title={arg.title} text={arg.text} status={arg.status}/>;
       }
     });
     const done = cardTab.map(arg => {
-      if (arg.step === "done") {
-        return <UserCard id ={arg.id} title={arg.title} text={arg.text} step={arg.step}/>;
+      if (arg.status === "done") {
+        return <UserCard id ={arg.id} title={arg.title} text={arg.text} status={arg.status}/>;
       }
     });
     return (
@@ -36,7 +36,6 @@ class AdminCards extends Component {
                 backgroundColor: "#7f8c8d",
                 height: "auto",
                 padding: "10px",
-                minWidth: "360px",
                 minWidth:"320px", 
                 margin:"0 auto"
               }}
@@ -51,7 +50,6 @@ class AdminCards extends Component {
                 backgroundColor: "#7f8c8d",
                 height: "auto",
                 padding: "10px",
-                minWidth: "360px",
                 minWidth:"320px", 
                 margin:"0 auto"
               }}
@@ -65,7 +63,6 @@ class AdminCards extends Component {
                 backgroundColor: "#7f8c8d",
                 height: "auto",
                 padding: "10px",
-                minWidth: "360px",
                 minWidth:"320px", 
                 margin:"0 auto"
               }}
@@ -80,7 +77,6 @@ class AdminCards extends Component {
                 backgroundColor: "#7f8c8d",
                 height: "auto",
                 padding: "10px",
-                minWidth: "360px",
                 minWidth:"320px", 
                 margin:"0 auto"
               }}
