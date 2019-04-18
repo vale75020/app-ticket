@@ -28,8 +28,8 @@ class AdminCards extends Component {
     return (
       <div>
           <h1>Admin Cards</h1>
-        <div style={{ width: "90%", margin: "auto", fontSize: "20px" }}>
-          <Grid className="demo-grid-ruler">
+        <div style={{ width: "90%", margin: "auto", fontSize: "20px",padding:"0" }}>
+          <Grid className="demo-grid-ruler" style={{ padding:"0" }}>
             <Cell
               style={{
                 borderRadius:"10px",

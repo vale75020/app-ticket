@@ -10,7 +10,7 @@ const UserCard = (props) => {
     } 
     
     return (
-        <Card shadow={5} style={{width: '100%', height: '300px', marginTop: '20px'}}>
+        <Card shadow={5} style={{width: '100%', height: 'auto', marginTop: '20px'}}>
             <CardTitle style={{backgroundColor: "#2c3e50", color:"white"}}>
                 <h2 style={{ width:"100%", margin:"0",lineHeight:"inherit", fontSize:"16px"}}>
                     {title}
@@ -21,10 +21,10 @@ const UserCard = (props) => {
                     {status}
                 </h2>
             </CardTitle>
-            <CardText style={{padding:"inherit",width:"100%",height: '100%', color: "black", fontSize:"12px", backgroundColor:"#ecf0f1"}}>
+            <CardText style={{padding:"inherit",width:"100%",height: '100%', color: "black", fontSize:"12px"}}>
                 {text}
             </CardText>
-            <CardActions border style={{backgroundColor: "#2c3e50", color:"white"}}>
+            <CardActions border style={{backgroundColor: "#2c3e50", color:"white",bottom:0, position:"absolute"}}>
                 <Button colored style={{color:"white"}} onClick={showDetails}>
                     View
                 </Button>
