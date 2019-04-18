@@ -12,7 +12,7 @@ body{
 }
 
 input {
-    width : 50%;
+    width : 40%;
     height: 20px;
     padding: 6px;
     margin: 20px;
@@ -20,7 +20,7 @@ input {
 }
 
 button {
-    width: 40%;
+    width: 30%;
     height: 40px;
     padding: 6px;
     background-color: #F8A907;

@@ -4,6 +4,7 @@ const cors = require("cors");
 const bcrypt = require("bcryptjs");
 //const passport = require("passport");
 
+
 const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 
@@ -19,21 +20,32 @@ app.use(express.urlencoded({ extended: false }));
 // }
 
 app.post("/register", (req, res) => {
-  // creer un nouveau utilisateur
-  const newUser = new User({
-    username: req.body.username,
-    password: req.body.password
-  });
-  bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(newUser.password, salt, (err, hash) => {
-      if (err) console.log(err);
-      newUser.password = hash;
-      newUser
-        .save()
-        .then(user => res.json(user))
-        .catch(err => console.log(err));
+   // creer un nouveau utilisateur
+   User.findOne({
+    username: req.body.username
+  }).then(user => {
+    // if(user) {
+    //   return res.status(400).json({
+    //     username: "L'username existe deja !"
+    //   })
+    // }
+    const newUser = new User({
+      username: req.body.username,
+      password: req.body.password
     });
-  });
+    user ? res.status(400).json({ username: "L'username existe deja !"}) : 
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(newUser.password, salt, (err, hash) => {
+        if (err) console.log(err);
+        newUser.password = hash;
+        newUser
+          .save()
+          .then(user => res.json(user))
+          .catch(err => console.log(err));
+      });
+    });
+  })
+  
 });
 
 app.post("/login", (req, res) => {
