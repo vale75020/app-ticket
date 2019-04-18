@@ -33,6 +33,17 @@ button {
   margin: 20px auto;
 }
 
+#home {
+  width: 40%;
+  height: 40px;
+  padding: 6px;
+  background-color: #f8a907;
+  font-weight: bold;
+  font-size: 16px;
+  margin: 20px auto;
+  border-radius: 0;
+}
+
 .reg {
   color: #f8a907;
   margin: auto;

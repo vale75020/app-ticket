@@ -40,7 +40,7 @@ app.post("/login", (req, res) => {
   User.findOne({
     username: req.body.username
   }).then(user => {
-    console.log(user);
+    //console.log(user);
     if (!user) {
       return res.status(404).json({
         username: "Ce compte n'existe pas !"
@@ -49,13 +49,15 @@ app.post("/login", (req, res) => {
     bcrypt.compare(req.body.password, user.password).then(isMatch => {
       if (isMatch) {
         // User Match
-        // const payload = {
-        //     id: user.id,
-        //     name: user.name,
-        // }
+        const payload = {
+            id: user.id,
+            username: user.username,
+            admin: user.admin
+        }
         // Creation du JWT Payload
         //Sign Token
-        jwt.sign({ user }, "secretkey", { expiresIn: "30s" }, (err, token) => {
+        console.log(payload)
+        jwt.sign({ payload }, "secretkey", { expiresIn: "1d" }, (err, token) => {
           // user:user
           res.json({
             token // token: token
