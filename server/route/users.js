@@ -4,7 +4,6 @@ const cors = require("cors");
 const bcrypt = require("bcryptjs");
 //const passport = require("passport");
 
-
 const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 
@@ -20,35 +19,33 @@ app.use(express.urlencoded({ extended: false }));
 // }
 
 app.post("/register", (req, res) => {
-   // creer un nouveau utilisateur
-   User.findOne({
+  // creer un nouveau utilisateur
+  if (!req.body.username || !req.body.password)
+    res.status(412).send("ENVOIE MOI MES PARAMETERES");
+  User.findOne({
     username: req.body.username
   }).then(user => {
-    // if(user) {
-    //   return res.status(400).json({
-    //     username: "L'username existe deja !"
-    //   })
-    // }
     const newUser = new User({
       username: req.body.username,
       password: req.body.password
     });
-    user ? res.status(400).json({ username: "L'username existe deja !"}) : 
-    bcrypt.genSalt(10, (err, salt) => {
-      bcrypt.hash(newUser.password, salt, (err, hash) => {
-        if (err) console.log(err);
-        newUser.password = hash;
-        newUser
-          .save()
-          .then(user => res.json(user))
-          .catch(err => console.log(err));
-      });
-    });
-  })
-  
+    user
+      ? res.status(400).json({ username: "L'username existe deja !" })
+      : bcrypt.genSalt(10, (err, salt) => {
+          bcrypt.hash(newUser.password, salt, (err, hash) => {
+            if (err) console.log(err);
+            newUser.password = hash;
+            newUser
+              .save()
+              .then(user => res.json(user))
+              .catch(err => console.log(err));
+          });
+        });
+  });
 });
 
 app.post("/login", (req, res) => {
+  //localStorage.removeItem(payload);
   User.findOne({
     username: req.body.username
   }).then(user => {
@@ -62,19 +59,25 @@ app.post("/login", (req, res) => {
       if (isMatch) {
         // User Match
         const payload = {
-            id: user.id,
-            username: user.username,
-            admin: user.admin
-        }
+          id: user.id,
+          username: user.username,
+          admin: user.admin
+        };
         // Creation du JWT Payload
         //Sign Token
-        console.log(payload)
-        jwt.sign({ payload }, "secretkey", { expiresIn: "1d" }, (err, token) => {
-          // user:user
-          res.json({
-            token // token: token
-          }); // post => res = token
-        });
+        //console.log(payload);
+        jwt.sign(
+          { payload },
+          "secretkey",
+          { expiresIn: "1d" },
+          (err, token) => {
+            // user:user
+            res.json({
+              token, // token: token
+              // username à recuperer en front pour affichage
+            }); // post => res = token
+          }
+        );
       } else {
         // errors.name = "Password incorrect";
         return res.status(400).json({

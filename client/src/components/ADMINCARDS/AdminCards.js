@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { Grid, Cell } from "react-mdl";
 import cardTab from "../cardTab";
-import UserCard from "../UserCard";
+import UserCard from "../USERCARD/UserCard";
+import AdminLayout from "../ADMINLAYOUT/AdminLayout"
+import './AdminCards.css'
 
 class AdminCards extends Component {
   render() {
@@ -27,61 +29,23 @@ class AdminCards extends Component {
     });
     return (
       <div>
+        <AdminLayout />
           <h1>Admin Cards</h1>
         <div style={{ width: "90%", margin: "auto", fontSize: "20px",padding:"0" }}>
           <Grid className="demo-grid-ruler" style={{ padding:"0" }}>
-            <Cell
-              style={{
-                borderRadius:"10px",
-                backgroundColor: "#7f8c8d",
-                height: "auto",
-                padding: "10px",
-                minWidth:"320px", 
-                margin:"0 auto"
-              }}
-              col={3}
-            >
+            <Cell className="column" col={3}>
               Valider
               {validate}
             </Cell>
-            <Cell
-              style={{
-                borderRadius:"10px",
-                backgroundColor: "#7f8c8d",
-                height: "auto",
-                padding: "10px",
-                minWidth:"320px", 
-                margin:"0 auto"
-              }}
-              col={3}
-            >
-              To Do {todo}
+              <Cell className="column" col={3}>
+              To Do 
+              {todo}
             </Cell>
-            <Cell
-              style={{
-                borderRadius:"10px",
-                backgroundColor: "#7f8c8d",
-                height: "auto",
-                padding: "10px",
-                minWidth:"320px", 
-                margin:"0 auto"
-              }}
-              col={3}
-            >
+            <Cell className="column" col={3}>
               Doing
               {doing}
             </Cell>
-            <Cell
-              style={{
-                borderRadius:"10px",
-                backgroundColor: "#7f8c8d",
-                height: "auto",
-                padding: "10px",
-                minWidth:"320px", 
-                margin:"0 auto"
-              }}
-              col={3}
-            >
+            <Cell className="column" col={3}>
               Done
               {done}
             </Cell>

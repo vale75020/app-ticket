@@ -11,8 +11,8 @@ body{
     margin: auto
 }
 
-input {
-    width : 40%;
+.loginInput {
+    width : 60%;
     height: 20px;
     padding: 6px;
     margin: 20px;

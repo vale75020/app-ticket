@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./register.css";
 import axios from "axios";
+import AdminLayout from "../ADMINLAYOUT/AdminLayout"
 
 class Register extends Component {
   state = {
@@ -12,6 +13,11 @@ class Register extends Component {
 
   handleOnSubmit = e => {  // envoier à la bdd le username et password
     e.preventDefault();
+
+    this.setState({
+      err: '',
+      userCreate: ''
+    })
     const newUser = {   // new user
       username: this.state.username,
       password: this.state.password
@@ -19,7 +25,7 @@ class Register extends Component {
     axios
       .post("http://localhost:3333/users/register", newUser)  // post pour registrer les données
       .then(response => {
-        // console.log(response.data);
+        console.log('in then', response);
         this.setState({
           userCreate: response.data.username,  // confirmation creation user 
           username: "",
@@ -27,6 +33,7 @@ class Register extends Component {
         });
       })
       .catch(err => {
+        console.log('in error', err)
         this.setState({ err: 'L"utilisateur existe deja' });
       });
   };
@@ -39,6 +46,8 @@ class Register extends Component {
 
   render() {
     return (
+      <div>
+      <AdminLayout />
       <div className="wrapper">
         <div className="register">
           <h1 className="reg">New User</h1>
@@ -49,6 +58,7 @@ class Register extends Component {
               placeholder="enter username"
               value={this.state.username}
               onChange={this.handleOnChange}
+              required
             />
             <input
               name="password"
@@ -56,24 +66,22 @@ class Register extends Component {
               placeholder="enter password"
               value={this.state.password}
               onChange={this.handleOnChange}
+              required
             />
             <button type="submit">Register</button>
+
+
             {this.state.userCreate ? (
-              <div style={{ color: "white" }}>{`L'utilisateur ${
-                this.state.userCreate
-              } a été crée`}</div>
-            ) : (
-              <div />
-            )}
+              <div style={{ color: "white" }}>{`L'utilisateur ${this.state.userCreate} a été crée`}</div>
+            ) : ''}
+            
             {this.state.err ? (
               <div style={{ color: "white" }}>{this.state.err}</div>
-            ) : (
-              <div />
-            )}
+            ) : ''}
             <hr />
-            <button id="home">HOME</button>
           </form>
         </div>
+      </div>
       </div>
     );
   }

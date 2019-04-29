@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import cardTab from "../cardTab";
-import UserCard from "../UserCard";
+import UserCard from "../USERCARD/UserCard";
 import { Grid, Cell } from "react-mdl";
+import UserLayout from '../USERLAYOUT/UserLayout'
 
 
 export default class UserCards extends Component {
@@ -21,7 +22,8 @@ export default class UserCards extends Component {
     ))
     return (
       <div>
-        <h1> User Cards </h1>
+        <UserLayout />
+        <h1 style={{fontFamily: "Permanent Marker, cursive"}}> User Cards </h1>
         <Grid className="demo-grid-ruler" style={{padding:0}}>
           <div style={{display:'flex', flexWrap:'wrap', width:"90%",margin:"0 5%", justifyContent:"space-between"}}>
               {displayCards}

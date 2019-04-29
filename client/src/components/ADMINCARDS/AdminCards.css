@@ -1,0 +1,11 @@
+.column {
+        border-radius: 10px ;
+        background-color: #7f8c8d;
+        height: auto;
+        padding: 10px;
+        min-width: 320px; 
+        margin: 0 auto;
+        color: white; 
+        margin: 10px auto;
+        font-size: 25px;
+}

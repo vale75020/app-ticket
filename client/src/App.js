@@ -5,6 +5,7 @@ import AdminCards from "./components/ADMINCARDS/AdminCards";
 import "./App.css";
 import UserCards from "./components/USERCARDS/UserCards";
 import Register from "./components/REGISTER/Register"
+import AdminNewCard from './components/ADMINNEWCARD/AdminNewCard'
 
 class App extends Component {
   render() {
@@ -15,6 +16,8 @@ class App extends Component {
           <Route exact path="/admincards" component={AdminCards} />
           <Route exact path="/usercards" component={UserCards} />
           <Route exact path="/register" component={Register} />
+          <Route exact path="/adminnewcard" component={AdminNewCard} />
+
         </div>
       </Router>
     );
