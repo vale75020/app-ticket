@@ -12,13 +12,16 @@ class UserCard extends Component {
          isOpen : !this.state.isOpen
       })
     }
+  removeCard = () => {
+    console.log("remove clicked")
+  }
 
   render() {
     const { title, text, status } = this.props;
     const mystyle = this.state.isOpen ? { width: "100%", height: "auto", marginTop: "20px" }:{ width: "100%", height: "300px", marginTop: "20px" };
 
     return (
-      <Card shadow={5} style={mystyle}>
+      <Card shadow={5} style={mystyle} >
         <CardTitle style={{ backgroundColor: "#2c3e50", color: "white" }}>
           <h2
             style={{
@@ -59,11 +62,16 @@ class UserCard extends Component {
             backgroundColor: "#2c3e50",
             color: "white",
             bottom: 0,
-            position: "relative"
+            position: "relative",
+            display:"flex",
+            justifyContent: "space-around"
           }}
         >
-          <Button colored style={{ color: "white" }} onClick={this.showDetails}>
+          <Button colored style={{ color: "white", border: "1px solid white"}} onClick={this.showDetails}>
             View
+          </Button>
+          <Button colored style={{ color: "red", border: "1px solid red"}} onClick={this.removeCard}>
+            Remove
           </Button>
         </CardActions>
       </Card>
