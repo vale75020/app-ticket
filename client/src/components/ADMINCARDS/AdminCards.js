@@ -1,43 +1,64 @@
 import React, { Component } from "react";
 import { Grid, Cell } from "react-mdl";
-import cardTab from "../cardTab";
+//import cardTab from "../cardTab";
 import UserCard from "../USERCARD/UserCard";
 import AdminLayout from "../ADMINLAYOUT/AdminLayout"
-import './AdminCards.css'
+import './AdminCards.css';
+import axios from "axios";
 
 class AdminCards extends Component {
   state = {
-    cards: cardTab
+    cards: []
     }
 
+    componentWillMount() {
+      axios.get('http://localhost:3333/cards/cards', {
+      })
+    .then((response) => {
+      console.log("response usercards", response);
+      this.setState({ 
+        cards: response.data
+      })
+      })
+    .catch((error) => {
+        console.log(error)
+      });
+    }
+
+  // handleDelete = id => {
+  //   alert("card deleted")
+  //   const cards = this.state.cards.filter(card => card._id !== id);
+  //   this.setState({ cards: cards });
+  // };
+
   handleDelete = id => {
-    alert("card deleted")
-    const cards = this.state.cards.filter(card => card.id !== id);
-    this.setState({ cards: cards });
-  };
+    console.log(id)
+      axios.delete(`http://localhost:3333/cards/cards/${id}`, {
+      })
+    .then((response) => {
+      alert("card deleted")
+      this.componentWillMount();
+      })
+    .catch((error) => {
+        console.log(error)
+      });
+  }
+
 
   render() {
-    console.log("admincard", this.state)
-    const validate = this.state.cards.map(card => {
-      if (card.status === "to-validate") {
-        return  <UserCard id ={card.id} title={card.title} text={card.text} status={card.status} onDelete={this.handleDelete} />;
-      }
-    });
-    const todo = this.state.cards.map(card => {
-      if (card.status === "to-do") {
-        return <UserCard id ={card.id} title={card.title} text={card.text} status={card.status} onDelete={this.handleDelete}/>;
-      }
-    });
-    const doing = this.state.cards.map(card => {
-      if (card.status === "doing") {
-        return  <UserCard id ={card.id} title={card.title} text={card.text} status={card.status} onDelete={this.handleDelete}/>;
-      }
-    });
-    const done = this.state.cards.map(card => {
-      if (card.status === "done") {
-        return <UserCard id ={card.id} title={card.title} text={card.text} status={card.status} onDelete={this.handleDelete}/>;
-      }
-    });
+    // console.log("admincard", this.state)
+    const validate = this.state.cards.filter(card => card.status === "to validate")
+    .map(card =>  <UserCard id ={card._id} title={card.title} text={card.text} status={card.status} onDelete={this.handleDelete} />)
+    
+    const todo = this.state.cards.filter(card => card.status === "to do")
+    .map(card =>  <UserCard id ={card._id} title={card.title} text={card.text} status={card.status} onDelete={this.handleDelete} />)
+    
+    const doing = this.state.cards.filter(card => card.status === "doing")
+    .map(card =>  <UserCard id ={card._id} title={card.title} text={card.text} status={card.status} onDelete={this.handleDelete} />)
+    
+    const done = this.state.cards.filter(card => card.status === "done")
+    .map(card =>  <UserCard id ={card._id} title={card.title} text={card.text} status={card.status} onDelete={this.handleDelete} />)
+    
     return (
       <div>
         <AdminLayout />

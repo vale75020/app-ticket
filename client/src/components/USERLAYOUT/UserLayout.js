@@ -10,7 +10,7 @@ export default class AdminLayout extends Component {
 <Layout style={{ height: '64px', backgroundColor: "#e67e22", color: '#ddd'}} fixedHeader>
     <Header style={{backgroundColor: "#e67e22", color: '#ddd'}} title={<span><span style={{ color: '#ddd' }}>Prizoners / </span><strong>Welcome Username </strong></span>}>
         <Navigation>
-            <a href="">Add Card</a>
+            <a href="/newcard">Add Card</a>
             <a href="/">Sign Out</a>
         </Navigation>
     </Header>

@@ -1,6 +1,7 @@
 const express = require("express"); // import express
 let _cards = require("../cards.json");
 const cors = require('cors')
+const Card = require("../models/card.model");
 
 var app = express(); // creation app express
 
@@ -14,8 +15,10 @@ function cardExist(id) {
   }
   
 app.get("/cards", (req, res) => {
-    //middleware express
-    res.status(200).send(_cards);
+    Card.find({}, (err, card) => {
+      if(err) console.log(err);
+      res.json(card)
+    })
   });
   
   // app.get("/cards/:id", (req, res) => {
@@ -26,22 +29,22 @@ app.get("/cards", (req, res) => {
   //   //console.log(card)
   // });
   
-  app.post("/card", (req, res) => {
-    // creer une nouvelle card
-    const body = req.body; // données recus comme title et description console.log('body: ', body)
-    if (body.title && body.description) {
-      // condition pour eviter les objets vides comme un send sans parametres
-      const newCard = {
-        id: _Date.now(), //pour donner un id unique en milliseconds
-        title: body.title,
-        description: body.description
-      };
-      _cards.push(newCard); //pour ajouter la card au tableau
-      res.status(200).send(newCard);
-    } else {
-      res.status(412).send("Title and Description are required fields");
-    }
-  });
+  app.post("/newcard", (req, res) => {
+
+    Card.findOne({
+      title: req.body.title
+    }).then(card => {
+      const newCard = new Card({
+        title: req.body.title,
+        text: req.body.text
+      });
+      card
+        ? res.status(400).json({ title: "la card existe deja !" })
+        : newCard.save()
+                .then(card => res.json(card))
+                .catch(err => console.log(err));
+            });
+          });
   
   app.put("/cards/:id", (req, res) => {
     const id = req.params.id; // verifier que l'id existe
@@ -61,17 +64,10 @@ app.get("/cards", (req, res) => {
   });
   
   app.delete("/cards/:id", (req, res) => {
-    const id = req.params.id;
-    let card = cardExist(id);
-  
-    if (card) {
-      _cards = _cards.filter(card => {
-        return card.id != id;
-      });
-      res.status(200).send("Deleted");
-    } else {
-      res.status(404).send("Card not found");
-    }
+    Card.findOneAndDelete({_id: req.params.id}, (err, card) => {
+      if(err) return console.log("Cette card n'exsite pas");
+      res.json(card)
+    })
   });
 
 
