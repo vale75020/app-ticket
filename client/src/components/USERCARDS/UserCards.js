@@ -10,11 +10,17 @@ export default class UserCards extends Component {
     cards: cardTab
     }
 
+    handleDelete = id => {
+      alert("card deleted")
+      const cards = this.state.cards.filter(card => card.id !== id);
+      this.setState({ cards: cards });
+    };
+
   render() {
     const displayCards = this.state.cards.map(card => (
-      <Cell style={{minWidth:"320px", margin:"0 auto"}} col={3} key={card.id}>
+      <Cell style={{minWidth:"270px", margin:"0 auto"}} col={3} key={card.id}>
         <div style={{display:'flex',flexWrap:'wrap', width:"100%"}}>
-          <UserCard key={card.id} title={card.title} text={card.text} status={card.status} />
+          <UserCard id={card.id} title={card.title} text={card.text} status={card.status} onDelete={this.handleDelete} />
         </div>
       </Cell>
 

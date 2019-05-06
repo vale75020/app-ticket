@@ -1,27 +1,28 @@
 import React, { Component } from "react";
 import { Card, CardTitle, CardText, CardActions, Button } from "react-mdl";
 import "./UserCard.css";
+import cardTab from "../cardTab";
 
 class UserCard extends Component {
   state = {
-    isOpen: false
+    isOpen: false,
+    cards: cardTab
   };
 
   showDetails = () => {
-      this.setState({
-         isOpen : !this.state.isOpen
-      })
-    }
-  removeCard = () => {
-    console.log("remove clicked")
-  }
-
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  };
+  
   render() {
-    const { title, text, status } = this.props;
-    const mystyle = this.state.isOpen ? { width: "100%", height: "auto", marginTop: "20px" }:{ width: "100%", height: "300px", marginTop: "20px" };
+    const { title, text, status ,id} = this.props;
+    const mystyle = this.state.isOpen
+      ? { width: "100%", height: "auto", marginTop: "20px" }
+      : { width: "100%", height: "auto", maxHeight: "300px", marginTop: "20px" };
 
     return (
-      <Card shadow={5} style={mystyle} >
+      <Card shadow={5} style={mystyle}>
         <CardTitle style={{ backgroundColor: "#2c3e50", color: "white" }}>
           <h2
             style={{
@@ -62,15 +63,23 @@ class UserCard extends Component {
             backgroundColor: "#2c3e50",
             color: "white",
             bottom: 0,
-            position: "relative",
-            display:"flex",
+            position: "absolute",
+            display: "flex",
             justifyContent: "space-around"
           }}
         >
-          <Button colored style={{ color: "white", border: "1px solid white"}} onClick={this.showDetails}>
+          <Button
+            colored
+            style={{ color: "white", border: "1px solid white", margin: "0 5px" }}
+            onClick={this.showDetails}
+          >
             View
           </Button>
-          <Button colored style={{ color: "red", border: "1px solid red"}} onClick={this.removeCard}>
+          <Button
+            colored
+            style={{ color: "red", border: "1px solid red",  margin: "0 5px" }}
+            onClick={() => this.props.onDelete(id)}
+          >
             Remove
           </Button>
         </CardActions>

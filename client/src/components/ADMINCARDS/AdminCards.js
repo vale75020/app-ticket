@@ -6,46 +6,57 @@ import AdminLayout from "../ADMINLAYOUT/AdminLayout"
 import './AdminCards.css'
 
 class AdminCards extends Component {
+  state = {
+    cards: cardTab
+    }
+
+  handleDelete = id => {
+    alert("card deleted")
+    const cards = this.state.cards.filter(card => card.id !== id);
+    this.setState({ cards: cards });
+  };
+
   render() {
-    const validate = cardTab.map(arg => {
-      if (arg.status === "to-validate") {
-        return  <UserCard id ={arg.id} title={arg.title} text={arg.text} status={arg.status} />;
+    console.log("admincard", this.state)
+    const validate = this.state.cards.map(card => {
+      if (card.status === "to-validate") {
+        return  <UserCard id ={card.id} title={card.title} text={card.text} status={card.status} onDelete={this.handleDelete} />;
       }
     });
-    const todo = cardTab.map(arg => {
-      if (arg.status === "to-do") {
-        return <UserCard id ={arg.id} title={arg.title} text={arg.text} status={arg.status}/>;
+    const todo = this.state.cards.map(card => {
+      if (card.status === "to-do") {
+        return <UserCard id ={card.id} title={card.title} text={card.text} status={card.status} onDelete={this.handleDelete}/>;
       }
     });
-    const doing = cardTab.map(arg => {
-      if (arg.status === "doing") {
-        return  <UserCard id ={arg.id} title={arg.title} text={arg.text} status={arg.status}/>;
+    const doing = this.state.cards.map(card => {
+      if (card.status === "doing") {
+        return  <UserCard id ={card.id} title={card.title} text={card.text} status={card.status} onDelete={this.handleDelete}/>;
       }
     });
-    const done = cardTab.map(arg => {
-      if (arg.status === "done") {
-        return <UserCard id ={arg.id} title={arg.title} text={arg.text} status={arg.status}/>;
+    const done = this.state.cards.map(card => {
+      if (card.status === "done") {
+        return <UserCard id ={card.id} title={card.title} text={card.text} status={card.status} onDelete={this.handleDelete}/>;
       }
     });
     return (
       <div>
         <AdminLayout />
-          <h1>Admin Cards</h1>
-        <div style={{ width: "90%", margin: "auto", fontSize: "20px",padding:"0" }}>
-          <Grid className="demo-grid-ruler" style={{ padding:"0" }}>
-            <Cell className="column" col={3}>
+          <h2>Admin Cards</h2>
+        <div style={{ width: "90%", height: "auto", fontSize: "20px",padding:"0", margin: "20px auto" }}>
+          <Grid className="demo-grid-ruler" style={{ padding:"0"}}>
+            <Cell className="column" col={3} style={{minWidth:"270px", margin:"20px auto"}}>
               Valider
               {validate}
             </Cell>
-              <Cell className="column" col={3}>
+              <Cell className="column" col={3} style={{minWidth:"270px", margin:"20px auto"}}>
               To Do 
               {todo}
             </Cell>
-            <Cell className="column" col={3}>
+            <Cell className="column" col={3} style={{minWidth:"270px", margin:"20px auto"}}>
               Doing
               {doing}
             </Cell>
-            <Cell className="column" col={3}>
+            <Cell className="column" col={3} style={{minWidth:"270px", margin:"20px auto"}}>
               Done
               {done}
             </Cell>
