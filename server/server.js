@@ -3,12 +3,15 @@ let _users = require("./users.json"); // file avec la bdd on utilise const car i
 let _cards = require("./cards.json");
 let users = require("./route/users.js");
 let cards = require("./route/cards.js");
+const passport = require("passport");
 
 const mongoose = require('mongoose')
 
 var app = express(); // creation app express
 const cors = require('cors') // pour eviter que tous puissent taper sur mon API
+require("./config/passport")(passport)
 
+app.use(passport.initialize());
 app.use(cors()); // pour autoriser le fetch
 app.use(express.json()); // pour parser les données recus par le body en format json
 app.use(express.urlencoded({ extended: false }));

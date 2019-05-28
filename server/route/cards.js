@@ -2,6 +2,7 @@ const express = require("express"); // import express
 let _cards = require("../cards.json");
 const cors = require('cors')
 const Card = require("../models/card.model");
+const passport = require("passport");
 
 var app = express(); // creation app express
 
@@ -14,7 +15,7 @@ function cardExist(id) {
     return card;
   }
   
-app.get("/cards", (req, res) => {
+app.get("/cards", passport.authenticate("jwt", {session: false}), (req, res) => {
     Card.find({}, (err, card) => {
       if(err) console.log(err);
       res.json(card)
