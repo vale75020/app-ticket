@@ -68,13 +68,14 @@ app.post("/login", (req, res) => {
         //Sign Token
         //console.log(payload);
         jwt.sign(
-          { payload },
-          "secretkey",
-          { expiresIn: "1d" },
+          payload,
+          "secret",
+          { expiresIn: 3600 },
           (err, token) => {
             // user:user
             res.json({
-              token, // token: token
+              success: true,
+              token: "Bearer " + token
               // username à recuperer en front pour affichage
             }); // post => res = token
           }

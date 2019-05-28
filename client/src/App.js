@@ -17,7 +17,6 @@ class App extends Component {
           <Route exact path="/usercards" component={UserCards} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/newcard" component={NewCard} />
-
         </div>
       </Router>
     );
