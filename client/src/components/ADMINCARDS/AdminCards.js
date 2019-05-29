@@ -12,7 +12,7 @@ class AdminCards extends Component {
     }
 
     componentWillMount() {
-      axios.get('http://localhost:3333/cards/cards', {
+      axios.get('http://localhost:3333/cards', {
       })
     .then((response) => {
       console.log("response usercards", response);
@@ -33,7 +33,7 @@ class AdminCards extends Component {
 
   handleDelete = id => {
     console.log(id)
-      axios.delete(`http://localhost:3333/cards/cards/${id}`, {
+      axios.delete(`http://localhost:3333/cards/${id}`, {
       })
     .then((response) => {
       alert("card deleted")

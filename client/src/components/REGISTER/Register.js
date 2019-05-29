@@ -23,7 +23,7 @@ class Register extends Component {
       password: this.state.password
     };
     axios
-      .post("http://localhost:3333/users/register", newUser)  // post pour registrer les données
+      .post("http://localhost:3333/register", newUser)  // post pour registrer les données
       .then(response => {
         console.log('in then', response);
         this.setState({

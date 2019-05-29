@@ -18,8 +18,8 @@ app.use(express.urlencoded({ extended: false }));
 
 // app.use(express.static(__dirname + '/public/')); 
 
-app.use("/users", users);
-app.use("/cards/", cards);
+app.use("/", users);
+app.use("/", cards);
 
 mongoose.connect('mongodb://localhost:27017/appticket', { useNewUrlParser: true });
 const db = mongoose.connection;
