@@ -2,92 +2,55 @@ const express = require("express"); // import express
 //let _users = require("../users.json");
 const cors = require("cors");
 const bcrypt = require("bcryptjs");
+const passport = require("passport");
 //const passport = require("passport");
 
 const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 
-var app = express(); // creation app express
+var app = express.Router(); // creation app express
 
-app.use(cors()); // pour autoriser le fetch
-app.use(express.json()); // pour parser les données recus par le body en format json
-app.use(express.urlencoded({ extended: false }));
+// app.use(cors()); // pour autoriser le fetch
+// app.use(express.json()); // pour parser les données recus par le body en format json
+// app.use(express.urlencoded({ extended: false }));
 
 // function userExist(id) {
 //   const user = _users.find(user => user.id == id);
 //   return user;
 // }
 
-app.post("/register", (req, res) => {
-  // creer un nouveau utilisateur
-  if (!req.body.username || !req.body.password)
-    res.status(412).send("ENVOIE MOI MES PARAMETERES");
-  User.findOne({
-    username: req.body.username
-  }).then(user => {
-    const newUser = new User({
-      username: req.body.username,
-      password: req.body.password
+app.post(
+  "/signup",
+  passport.authenticate("signup", { session: false }),
+  async (req, res, next) => {
+    res.json({
+      message: "Signup successful",
+      user: req.user
     });
-    console.log(user)
-    user
-      ? res.status(400).json({ username: "L'username existe deja !" })
-      : bcrypt.genSalt(10, (err, salt) => {
-          bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if (err) console.log(err);
-            newUser.password = hash;
-            newUser
-              .save()
-              .then(user => res.json(user))
-              .catch(err => console.log(err));
-          });
-        });
-  });
-});
+  }
+);
 
-app.post("/login", (req, res) => {
-  //localStorage.removeItem(payload);
-  User.findOne({
-    username: req.body.username
-  }).then(user => {
-    //console.log(user);
-    if (!user) {
-      return res.status(404).json({
-        username: "Ce compte n'existe pas !"
-      });
-    }
-    bcrypt.compare(req.body.password, user.password).then(isMatch => {
-      if (isMatch) {
-        // User Match
-        const payload = {
-          id: user.id,
-          username: user.username,
-          admin: user.admin
-        };
-        // Creation du JWT Payload
-        //Sign Token
-        //console.log(payload);
-        jwt.sign(
-          payload,
-          "secret",
-          { expiresIn: 3600 },
-          (err, token) => {
-            // user:user
-            res.json({
-              success: true,
-              token: "Bearer " + token
-              // username à recuperer en front pour affichage
-            }); // post => res = token
-          }
-        );
-      } else {
-        // errors.name = "Password incorrect";
-        return res.status(400).json({
-          password: "Password incorrect"
-        });
+app.post("/login", async (req, res, next) => {
+  passport.authenticate("login", async (err, user, info) => {
+    try {
+      if (err || !user) {
+        const error = new Error("An Error occured");
+        return next(error);
       }
-    });
-  });
+      req.login(user, { session: false }, async error => {
+        if (error) return next(error);
+        //We don't want to store the sensitive information such as the
+        //user password in the token so we pick only the email and id
+        const body = { _id: user._id, username: user.username };
+        //Sign the JWT token and populate the payload with the user email and id
+        const token = jwt.sign({ user: body }, "top_secret");
+        //Send back the token to the user
+        return res.json({ token });
+      });
+    } catch (error) {
+      return next(error);
+    }
+  })(req, res, next);
 });
 
 // Verify Token

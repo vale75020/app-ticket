@@ -15,16 +15,13 @@ function cardExist(id) {
   return card;
 }
 
-app.get(
-  "/cards",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    Card.find({}, (err, card) => {
-      if (err) console.log(err);
-      res.json(card);
-    });
-  }
-);
+app.get("/cards", (req, res, next) => {
+  //We'll just send back the user details and the token
+  res.json({
+    message: "You made it to the secure route",
+    token: req.query.secret_token
+  });
+});
 
 // app.get("/cards/:id", (req, res) => {
 //   const id = req.params.id; // pour recuperer l'id
