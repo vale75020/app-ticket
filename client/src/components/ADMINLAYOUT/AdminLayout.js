@@ -12,7 +12,7 @@ export default class AdminLayout extends Component {
         <Navigation>
             <a href="/adminCards">Home</a>
             <a href="/register">Add User</a>
-            <a href="adminnewcard">Add Card</a>
+            <a href="/adminnewcard">Add Card</a>
             <a href="/">Sign Out</a>
         </Navigation>
     </Header>
