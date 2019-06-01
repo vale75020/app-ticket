@@ -45,11 +45,11 @@ app.post("/login", (req, res) => {
     bcrypt.compare(req.body.password, user.password).then(isMatch => {
       if (isMatch) {
         // User Match
-        console.log(user);
+        console.log("inLogin: ", user);
         const payload = {
-          id: user.id
-          // username: user.username,
-          // admin: user.admin
+          id: user.id,
+          username: user.username,
+          admin: user.admin
         };
         // Creation du JWT Payload
         //Sign Token

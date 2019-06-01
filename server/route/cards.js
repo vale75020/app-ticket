@@ -7,19 +7,44 @@ const User = require("../models/user.model");
 
 // All Cards
 app.get("/all", auth, (req, res) => {
-  Card.find({}, (err, card) => {
-    if (err) console.log(err);
-    res.json(card);
-  });
+  if (req.user.admin) {
+    Card.find({})
+      .populate("user", ["username"])
+      .then((card, err) => {
+        if (err) console.log(err);
+        res.json(card);
+      });
+  } else {
+    res.status(400).json({ msg: "You are not admin" });
+  }
 });
 
+// Card of user
 app.get("/me", auth, (req, res) => {
-  Card.find({ user: req.user })
+  Card.find({ user: req.user.id })
     .populate("user", ["username"])
     .then((card, err) => {
       if (err) console.log(err);
       res.json(card);
     });
+});
+
+// Find card by id
+app.get("/:id", auth, (req, res) => {
+  Card.findOne({ _id: req.params.id }, (err, card) => {
+    // console.log("Req User: ", req.user.id);
+    // console.log("Card User: ", card.user);
+    // console.log(req.user.id == card.user);
+    // Pourquoi ca ne marche pas avec un === ?
+    if (req.user.admin || req.user.id == card.user) {
+      if (err) console.log(err);
+      res.json(card);
+    } else {
+      res.json({
+        msg: "Is not your card"
+      });
+    }
+  });
 });
 
 // Post Card
@@ -28,7 +53,7 @@ app.post("/add", auth, (req, res) => {
     title: req.body.title
   }).then(card => {
     const newCard = new Card({
-      user: req.user,
+      user: req.user.id,
       title: req.body.title,
       text: req.body.text
     });
@@ -41,7 +66,8 @@ app.post("/add", auth, (req, res) => {
   });
 });
 
-// Find by :id
+//////////////////
+// modify by :id
 app.put("/:id", (req, res) => {
   const id = req.params.id; // verifier que l'id existe
   const card = cardExist(id); //return la card
