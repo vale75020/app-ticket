@@ -3,21 +3,32 @@ const app = express.Router(); // creation app express
 
 const auth = require("../middleware/auth");
 const Card = require("../models/card.model");
+const User = require("../models/user.model");
 
 // All Cards
-app.get("/cards", auth, (req, res) => {
+app.get("/all", auth, (req, res) => {
   Card.find({}, (err, card) => {
     if (err) console.log(err);
     res.json(card);
   });
 });
 
+app.get("/me", auth, (req, res) => {
+  Card.find({ user: req.user })
+    .populate("user", ["username"])
+    .then((card, err) => {
+      if (err) console.log(err);
+      res.json(card);
+    });
+});
+
 // Post Card
-app.post("/newcard", (req, res) => {
+app.post("/add", auth, (req, res) => {
   Card.findOne({
     title: req.body.title
   }).then(card => {
     const newCard = new Card({
+      user: req.user,
       title: req.body.title,
       text: req.body.text
     });
@@ -31,7 +42,7 @@ app.post("/newcard", (req, res) => {
 });
 
 // Find by :id
-app.put("/cards/:id", (req, res) => {
+app.put("/:id", (req, res) => {
   const id = req.params.id; // verifier que l'id existe
   const card = cardExist(id); //return la card
   const updatedFields = ["title", "description"]; // tous les champs que on peut mettre à jour
@@ -45,7 +56,7 @@ app.put("/cards/:id", (req, res) => {
 });
 
 // Delete
-app.delete("/cards/:id", (req, res) => {
+app.delete("/:id", (req, res) => {
   Card.findOneAndDelete({ _id: req.params.id }, (err, card) => {
     if (err) return console.log("Cette card n'exsite pas");
     res.json(card);
