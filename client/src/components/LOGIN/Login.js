@@ -12,7 +12,7 @@ class Login extends Component {
 
   login = () => {
 
-    axios.post('http://localhost:3333/users/login', {
+    axios.post('http://localhost:3333/login', {
       username: this.state.username,
       password: this.state.password
     })

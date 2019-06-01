@@ -22,7 +22,7 @@ class AdminNewCard extends Component {
     };
     console.log(newCard);
     axios
-      .post("http://localhost:3333/cards/newcard", newCard) // post pour registrer les données
+      .post("http://localhost:3333/newcard", newCard) // post pour registrer les données
       .then(response => {
         console.log("in then", response);
         this.setState({
