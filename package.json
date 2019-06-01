@@ -5,10 +5,7 @@
   "author": "vale75020 <valentinosuma@hotmail.com>",
   "license": "MIT",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "express": "^4.16.4",
-    "jshint": "^2.10.1",
-    "passport-jwt": "^4.0.0"
+    "jshint": "^2.10.1"
   },
   "devDependencies": {
     "concurrently": "^4.1.0",

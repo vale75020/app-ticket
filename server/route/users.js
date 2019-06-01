@@ -1,22 +1,9 @@
 const express = require("express"); // import express
-//let _users = require("../users.json");
-const cors = require("cors");
-const bcrypt = require("bcryptjs");
-//const passport = require("passport");
+const app = express.Router();
 
+const bcrypt = require("bcryptjs");
 const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
-
-var app = express(); // creation app express
-
-app.use(cors()); // pour autoriser le fetch
-app.use(express.json()); // pour parser les données recus par le body en format json
-app.use(express.urlencoded({ extended: false }));
-
-// function userExist(id) {
-//   const user = _users.find(user => user.id == id);
-//   return user;
-// }
 
 app.post("/register", (req, res) => {
   // creer un nouveau utilisateur
@@ -29,7 +16,6 @@ app.post("/register", (req, res) => {
       username: req.body.username,
       password: req.body.password
     });
-    console.log(user)
     user
       ? res.status(400).json({ username: "L'username existe deja !" })
       : bcrypt.genSalt(10, (err, salt) => {
@@ -59,27 +45,24 @@ app.post("/login", (req, res) => {
     bcrypt.compare(req.body.password, user.password).then(isMatch => {
       if (isMatch) {
         // User Match
+        console.log(user);
         const payload = {
-          id: user.id,
-          username: user.username,
-          admin: user.admin
+          id: user.id
+          // username: user.username,
+          // admin: user.admin
         };
         // Creation du JWT Payload
         //Sign Token
         //console.log(payload);
-        jwt.sign(
-          payload,
-          "secret",
-          { expiresIn: 3600 },
-          (err, token) => {
-            // user:user
-            res.json({
-              success: true,
-              token: "Bearer " + token
-              // username à recuperer en front pour affichage
-            }); // post => res = token
-          }
-        );
+        jwt.sign(payload, "secret", { expiresIn: 3600 }, (err, token) => {
+          // user:user
+          if (err) console.log(err);
+          res.json({
+            success: true,
+            token: token
+            // username à recuperer en front pour affichage
+          }); // post => res = token
+        });
       } else {
         // errors.name = "Password incorrect";
         return res.status(400).json({
@@ -89,25 +72,5 @@ app.post("/login", (req, res) => {
     });
   });
 });
-
-// Verify Token
-function verifyToken(req, res, next) {
-  // get auth header value - we send token in the header and verify authorization value
-  const bearerHeader = req.headers["authorization"];
-  // check if bearer is undefined
-  if (typeof bearerHeader !== "undefined") {
-    // Split at the space
-    const bearer = bearerHeader.split(" ");
-    // Get token from array
-    const bearerToken = bearer[1];
-    // Set the token
-    req.token = bearerToken;
-    // Next middleware
-    next();
-  } else {
-    // Forbidden
-    res.sendStatus(403);
-  }
-}
 
 module.exports = app;
