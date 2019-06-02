@@ -32,9 +32,6 @@ app.get("/me", auth, (req, res) => {
 // Find card by id
 app.get("/:id", auth, (req, res) => {
   Card.findOne({ _id: req.params.id }, (err, card) => {
-    // console.log("Req User: ", req.user.id);
-    // console.log("Card User: ", card.user);
-    // console.log(req.user.id == card.user);
     // Pourquoi ca ne marche pas avec un === ?
     if (req.user.admin || req.user.id == card.user) {
       if (err) console.log(err);
@@ -68,17 +65,24 @@ app.post("/add", auth, (req, res) => {
 
 //////////////////
 // modify by :id
-app.put("/:id", (req, res) => {
-  const id = req.params.id; // verifier que l'id existe
-  const card = cardExist(id); //return la card
-  const updatedFields = ["title", "description"]; // tous les champs que on peut mettre à jour
-  if (card) {
-    updatedFields.forEach(field => {
-      // boucler le tableau champs
-      if (req.body[field]) card[field] = req.body[field];
-    });
-    res.status(200).send(card);
-  } else res.status(404).send("Card not found");
+app.put("/:id", auth, (req, res) => {
+  const cardField = {};
+  cardField.title = req.body.title;
+  cardField.text = req.body.text;
+
+  Card.findOne({ _id: req.params.id }).then(card => {
+    if (req.user.admin || card.user == req.user.id) {
+      Card.findOneAndUpdate(
+        { _id: req.params.id },
+        { $set: cardField },
+        { new: true }
+      ).then(card => res.json(card));
+    } else {
+      res.json({
+        msg: "Impossible de modifier la carte d'un autre utilisateur"
+      });
+    }
+  });
 });
 
 // Delete
