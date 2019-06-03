@@ -12,7 +12,7 @@ class AdminCards extends Component {
     }
 
     componentWillMount() {
-      axios.get('http://localhost:3333/cards', {
+      axios.get('http://localhost:3333/cards/all', {
       })
     .then((response) => {
       console.log("response usercards", response);

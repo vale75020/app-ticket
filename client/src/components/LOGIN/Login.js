@@ -2,12 +2,15 @@ import React, { Component } from "react";
 import Logo from "../LOGO/Logo";
 import "./login.css";
 import axios from 'axios'
+import { Redirect } from 'react-router-dom';
 
 class Login extends Component {
 
   state = {
     username:"",
-    password:""
+    password:"",
+    redirect: false,
+    isLogged: false
   }
 
   login = () => {
@@ -17,7 +20,9 @@ class Login extends Component {
       password: this.state.password
     })
     .then(function (response) {
-      console.log(response);
+      // console.log(response);
+      localStorage.setItem('token', response.data.token)
+      this.setState({ redirect: true, isLogged: true }) 
     })
     .catch(function (error) {
 
@@ -28,6 +33,13 @@ class Login extends Component {
       password:""
     })
   }
+
+  isLoginRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to='/cards/mycards'/>
+    }
+  }
+
  
   handleChange = (e) => {
     this.setState({
@@ -57,6 +69,7 @@ class Login extends Component {
           required
         />
         <button onClick={this.login}>LOGIN</button>
+        {this.isLoginRedirect()}
       </div>
     );
   }

@@ -20,7 +20,7 @@ app.get("/all", auth, (req, res) => {
 });
 
 // Card of user
-app.get("/me", auth, (req, res) => {
+app.get("/mycards", auth, (req, res) => {
   Card.find({ user: req.user.id })
     .populate("user", ["username"])
     .then((card, err) => {
@@ -46,21 +46,12 @@ app.get("/:id", auth, (req, res) => {
 
 // Post Card
 app.post("/add", auth, (req, res) => {
-  Card.findOne({
-    title: req.body.title
-  }).then(card => {
+  
     const newCard = new Card({
       user: req.user.id,
       title: req.body.title,
       text: req.body.text
-    });
-    card
-      ? res.status(400).json({ title: "la card existe deja !" })
-      : newCard
-          .save()
-          .then(card => res.json(card))
-          .catch(err => console.log(err));
-  });
+    }).save()
 });
 
 //////////////////

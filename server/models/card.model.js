@@ -17,7 +17,11 @@ const cardSchema = new Schema({
   status: {
     type: String,
     default: "to validate"
-  }
+  },
+  date: {
+    type: Date,
+    default: new Date()
+  }  
 });
 
 module.exports = Card = mongoose.model("cards", cardSchema);

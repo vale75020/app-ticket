@@ -13,10 +13,10 @@ class App extends Component {
       <Router>
         <div className="App">
           <Route exact path="/" component={Login} />
-          <Route exact path="/admincards" component={AdminCards} />
-          <Route exact path="/usercards" component={UserCards} />
+          <Route exact path="/all" component={AdminCards} />
+          <Route exact path="/mycards" component={UserCards} />
           <Route exact path="/register" component={Register} />
-          <Route exact path="/newcard" component={NewCard} />
+          <Route exact path="/add" component={NewCard} />
         </div>
       </Router>
     );
