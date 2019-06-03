@@ -1,24 +1,26 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Login from "./components/LOGIN/Login";
 import AdminCards from "./components/ADMINCARDS/AdminCards";
 import "./App.css";
 import UserCards from "./components/USERCARDS/UserCards";
-import Register from "./components/REGISTER/Register"
-import NewCard from './components/NEWCARD/NewCard'
+import Register from "./components/REGISTER/Register";
+import NewCard from './components/NEWCARD/NewCard';
+import { PrivateRoute } from './components/PrivateRoute';
+
 
 class App extends Component {
   render() {
     return (
-      <Router>
+      <Switch>
         <div className="App">
           <Route exact path="/" component={Login} />
-          <Route exact path="/all" component={AdminCards} />
-          <Route exact path="/mycards" component={UserCards} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/add" component={NewCard} />
+          <PrivateRoute exact path="/all" component={AdminCards} />
+          <PrivateRoute exact path="/mycards" component={UserCards} />
+          <PrivateRoute exact path="/register" component={Register} />
+          <PrivateRoute exact path="/add" component={NewCard} />
         </div>
-      </Router>
+      </Switch>
     );
   }
 }
