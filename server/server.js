@@ -11,8 +11,8 @@ app.use(cors()); // pour autoriser le fetch
 app.use(express.json()); // pour parser les données recus par le body en format json
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/users", users);
-app.use("/cards", cards);
+app.use("/", users);
+app.use("/", cards);
 
 mongoose.connect("mongodb://localhost:27017/appticket", {
   useNewUrlParser: true

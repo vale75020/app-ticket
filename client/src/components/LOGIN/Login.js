@@ -9,8 +9,7 @@ class Login extends Component {
   state = {
     username:"",
     password:"",
-    redirect: false,
-    isLogged: false
+    redirect:false 
   }
 
   login = () => {
@@ -20,24 +19,17 @@ class Login extends Component {
       password: this.state.password
     })
     .then(function (response) {
-      // console.log(response);
-      localStorage.setItem('token', response.data.token)
-      this.setState({ redirect: true, isLogged: true }) 
+      console.log(response);
+      localStorage.setItem('token', response.data.token) 
     })
     .catch(function (error) {
-
       console.log(error);
     });
     this.setState({  // reinitializer inputs
       username:"",
-      password:""
+      password:"",
+      redirect:true
     })
-  }
-
-  isLoginRedirect = () => {
-    if (this.state.redirect) {
-      return <Redirect to='/cards/mycards'/>
-    }
   }
 
  
@@ -46,8 +38,12 @@ class Login extends Component {
       [e.target.name]: e.target.value
     })
   }
+
   render() {
     return (
+      (this.state.redirect) 
+      ? <Redirect to='/mycards'/>
+      :
       <div className="login">
         <Logo />
         <input
@@ -69,7 +65,6 @@ class Login extends Component {
           required
         />
         <button onClick={this.login}>LOGIN</button>
-        {this.isLoginRedirect()}
       </div>
     );
   }
