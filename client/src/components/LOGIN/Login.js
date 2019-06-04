@@ -3,40 +3,35 @@ import Logo from "../LOGO/Logo";
 import "./login.css";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 class Login extends Component {
   state = {
     username: "",
     password: "",
-    redirect: false,
-    isLogged: false
+    redirect: false
   };
 
   login = () => {
     axios
-      .post("http://localhost:3333/users/login", {
+      .post("http://localhost:3333/login", {
         username: this.state.username,
         password: this.state.password
       })
-      .then(function(response) {
+      .then(response => {
         console.log(response);
         localStorage.setItem("token", response.data.token);
+        const decoded = jwt_decode(localStorage.getItem("token"));
+        localStorage.setItem("isAdmin", decoded.admin);
+        //console.log("const decoded: ", decoded)
         this.setState({ redirect: true });
+        this.state.redirect && localStorage.getItem("isAdmin") === "true"
+          ? this.props.history.push("/all")
+          : this.props.history.push("/mycards");
       })
-      .catch(function(error) {
+      .catch(error => {
         console.log(error);
       });
-    this.setState({
-      // reinitializer inputs
-      username: "",
-      password: ""
-    });
-  };
-
-  isLoginRedirect = () => {
-    if (this.state.redirect) {
-      return <Redirect to="/cards/mycards" />;
-    }
   };
 
   handleChange = e => {
@@ -44,36 +39,43 @@ class Login extends Component {
       [e.target.name]: e.target.value
     });
   };
+
   render() {
-    if (localStorage.getItem("token")) {
-      return <h2>bug</h2>;
-    } else {
-      return (
-        <div className="login">
-          <Logo />
-          <input
-            onChange={this.handleChange}
-            value={this.state.username}
-            className="loginInput"
-            type="text"
-            name="username"
-            placeholder="enter your username"
-            required
-          />
-          <input
-            onChange={this.handleChange}
-            value={this.state.password}
-            className="loginInput"
-            name="password"
-            type="password"
-            placeholder="enter your password"
-            required
-          />
-          <button>LOGIN</button>
-          {this.isLoginRedirect()}
-        </div>
-      );
-    }
+    // if (this.state.redirect) {
+    //   if (localStorage.getItem("isAdmin") === "true") {
+    //     return <Redirect to="/all" />;
+    //     // console.log("all");
+    //   } else {
+    //     return <Redirect to="/mycards" />;
+    //     // console.log("mycards");
+    //   }
+    // }
+    // const { redirect } = this.state;
+
+    return (
+      <div className="login">
+        <Logo />
+        <input
+          onChange={this.handleChange}
+          value={this.state.username}
+          className="loginInput"
+          type="text"
+          name="username"
+          placeholder="enter your username"
+          required
+        />
+        <input
+          onChange={this.handleChange}
+          value={this.state.password}
+          className="loginInput"
+          name="password"
+          type="password"
+          placeholder="enter your password"
+          required
+        />
+        <button onClick={this.login}>LOGIN</button>
+      </div>
+    );
   }
 }
 
