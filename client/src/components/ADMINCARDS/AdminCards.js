@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Grid, Cell } from "react-mdl";
-//import cardTab from "../cardTab";
 import UserCard from "../USERCARD/UserCard";
 import AdminLayout from "../ADMINLAYOUT/AdminLayout";
 import "./AdminCards.css";
@@ -13,7 +12,7 @@ class AdminCards extends Component {
 
   componentWillMount() {
     axios
-      .get("http://localhost:3333/all", {})
+      .get("http://localhost:3333/all")
       .then(response => {
         console.log("response usercards", response);
         this.setState({
@@ -50,6 +49,7 @@ class AdminCards extends Component {
       .filter(card => card.status === "to validate")
       .map(card => (
         <UserCard
+          key={card._id}
           id={card._id}
           title={card.title}
           text={card.text}
@@ -62,6 +62,7 @@ class AdminCards extends Component {
       .filter(card => card.status === "to do")
       .map(card => (
         <UserCard
+          key={card._id}
           id={card._id}
           title={card.title}
           text={card.text}
@@ -74,6 +75,7 @@ class AdminCards extends Component {
       .filter(card => card.status === "doing")
       .map(card => (
         <UserCard
+          key={card._id}
           id={card._id}
           title={card.title}
           text={card.text}
@@ -86,6 +88,7 @@ class AdminCards extends Component {
       .filter(card => card.status === "done")
       .map(card => (
         <UserCard
+          key={card._id}
           id={card._id}
           title={card.title}
           text={card.text}

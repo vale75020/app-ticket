@@ -45,7 +45,6 @@ app.post("/login", (req, res) => {
     bcrypt.compare(req.body.password, user.password).then(isMatch => {
       if (isMatch) {
         // User Match
-        console.log("inLogin: ", user);
         const payload = {
           id: user.id,
           username: user.username,

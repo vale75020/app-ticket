@@ -22,11 +22,11 @@ class Login extends Component {
         localStorage.setItem("token", response.data.token);
         const decoded = jwt_decode(localStorage.getItem("token"));
         localStorage.setItem("isAdmin", decoded.admin);
-        //console.log("const decoded: ", decoded)
         this.setState({ redirect: true });
         this.state.redirect && localStorage.getItem("isAdmin") === "true"
           ? this.props.history.push("/all")
           : this.props.history.push("/mycards");
+        window.location.reload();
       })
       .catch(error => {
         console.log(error);
