@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Logo from "../LOGO/Logo";
 import "./login.css";
 import axios from "axios";
-import { Redirect } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
 class Login extends Component {
@@ -41,17 +40,6 @@ class Login extends Component {
   };
 
   render() {
-    // if (this.state.redirect) {
-    //   if (localStorage.getItem("isAdmin") === "true") {
-    //     return <Redirect to="/all" />;
-    //     // console.log("all");
-    //   } else {
-    //     return <Redirect to="/mycards" />;
-    //     // console.log("mycards");
-    //   }
-    // }
-    // const { redirect } = this.state;
-
     return (
       <div className="login">
         <Logo />

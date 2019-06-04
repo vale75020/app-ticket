@@ -2,6 +2,12 @@ import React, { Component } from 'react'
 import { Layout, Header, Navigation } from 'react-mdl'
 
 export default class AdminLayout extends Component {
+
+  logout() {
+    localStorage.clear();
+    window.location.href = '/';
+}
+
   render() {
     return (
       <div>
@@ -11,7 +17,7 @@ export default class AdminLayout extends Component {
     <Header style={{backgroundColor: "#e67e22", color: '#ddd'}} title={<span><span style={{ color: '#ddd' }}>Prizoners / </span><strong>Welcome Username </strong></span>}>
         <Navigation>
             <a href="/newcard">Add Card</a>
-            <a href="/">Sign Out</a>
+            <a href="/" onClick={this.logout}>Logout</a>
         </Navigation>
     </Header>
 </Layout>

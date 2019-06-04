@@ -18,7 +18,7 @@ class App extends Component {
           <PrivateRoute exact path="/all" component={AdminCards} />
           <PrivateRoute exact path="/mycards" component={UserCards} />
           <PrivateRoute exact path="/register" component={Register} />
-          <PrivateRoute exact path="/add" component={NewCard} />
+          <PrivateRoute exact path="/newcard" component={NewCard} />
           <Route component={Page404} />
         </Switch>
       </div>

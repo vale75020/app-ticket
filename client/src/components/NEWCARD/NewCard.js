@@ -3,7 +3,7 @@ import "./newCard.css";
 import axios from "axios";
 import AdminLayout from "../ADMINLAYOUT/AdminLayout";
 
-class AdminNewCard extends Component {
+class NewCard extends Component {
   state = {
     err: "",
     title: "",
@@ -50,6 +50,7 @@ class AdminNewCard extends Component {
   render() {
     return (
       <div>
+        
         <AdminLayout />
         <div className="wrapper">
           <div className="register">
@@ -95,4 +96,4 @@ class AdminNewCard extends Component {
   }
 }
 
-export default AdminNewCard;
+export default NewCard;
