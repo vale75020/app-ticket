@@ -5,22 +5,23 @@ import AdminCards from "./components/ADMINCARDS/AdminCards";
 import "./App.css";
 import UserCards from "./components/USERCARDS/UserCards";
 import Register from "./components/REGISTER/Register";
-import NewCard from './components/NEWCARD/NewCard';
-import { PrivateRoute } from './components/PrivateRoute';
-
+import NewCard from "./components/NEWCARD/NewCard";
+import { PrivateRoute } from "./components/PrivateRoute";
+import NotFound from "./components/NotFound";
 
 class App extends Component {
   render() {
     return (
-      <Switch>
-        <div className="App">
-          <Route exact path="/" component={Login} />
-          <PrivateRoute exact path="/all" component={AdminCards} />
-          <PrivateRoute exact path="/mycards" component={UserCards} />
-          <PrivateRoute exact path="/register" component={Register} />
-          <PrivateRoute exact path="/add" component={NewCard} />
-        </div>
-      </Switch>
+      <div className="App">
+        <Switch>
+          <Route path="/" exact component={Login} />
+          <PrivateRoute path="/all" exact component={AdminCards} />
+          <PrivateRoute path="/mycards" exact component={UserCards} />
+          <PrivateRoute path="/register" exact component={Register} />
+          <PrivateRoute path="/add" exact component={NewCard} />
+          <Route component={NotFound} />
+        </Switch>
+      </div>
     );
   }
 }
