@@ -3,13 +3,14 @@ import Logo from "../LOGO/Logo";
 import "./login.css";
 import axios from 'axios'
 import { Redirect } from 'react-router-dom';
+import jwt_decode from "jwt-decode";
 
 class Login extends Component {
 
   state = {
     username:"",
     password:"",
-    redirect:false 
+    redirect:false
   }
 
   login = () => {
@@ -18,17 +19,20 @@ class Login extends Component {
       username: this.state.username,
       password: this.state.password
     })
-    .then(function (response) {
+    .then((response) => {
       console.log(response);
-      localStorage.setItem('token', response.data.token) 
+      localStorage.setItem('token', response.data.token);
+      const decoded = jwt_decode(localStorage.getItem("token"));
+      localStorage.setItem('isAdmin', decoded.admin);
+      //console.log("const decoded: ", decoded)
+      this.setState({redirect: true})
     })
     .catch(function (error) {
       console.log(error);
     });
     this.setState({  // reinitializer inputs
       username:"",
-      password:"",
-      redirect:true
+      password:""
     })
   }
 
@@ -40,10 +44,13 @@ class Login extends Component {
   }
 
   render() {
+    if(this.state.redirect) {
+      if(localStorage.getItem("isAdmin")) {
+        return (<Redirect to="all" />)
+      } else { return (<Redirect to="/mycards" />) }
+    }
     return (
-      (this.state.redirect) 
-      ? <Redirect to='/mycards'/>
-      :
+      
       <div className="login">
         <Logo />
         <input
