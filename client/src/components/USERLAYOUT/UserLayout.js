@@ -38,6 +38,7 @@ export default class AdminLayout extends Component {
               }
             >
               <Navigation>
+              <Link to="/mycards">Home</Link>
                 <Link to="/newcard">Add Card</Link>
                 <Link to="/mycards" onClick={this.logout}>
                   Logout

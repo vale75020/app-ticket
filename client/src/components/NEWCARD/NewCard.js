@@ -3,6 +3,7 @@ import "./newCard.css";
 import axios from "axios";
 import AdminLayout from "../ADMINLAYOUT/AdminLayout";
 import UserLayout from "../USERLAYOUT/UserLayout";
+
 class NewCard extends Component {
   state = {
     cardCreate: "",
