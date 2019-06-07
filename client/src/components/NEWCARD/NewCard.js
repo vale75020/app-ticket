@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import "./newCard.css";
 import axios from "axios";
 import AdminLayout from "../ADMINLAYOUT/AdminLayout";
-
+import UserLayout from "../USERLAYOUT/UserLayout";
 class NewCard extends Component {
   state = {
+    cardCreate: "",
     err: "",
     title: "",
     text: "",
@@ -50,8 +51,7 @@ class NewCard extends Component {
   render() {
     return (
       <div>
-        
-        <AdminLayout />
+        {localStorage.isAdmin === "true" ? <AdminLayout /> : <UserLayout />}
         <div className="wrapper">
           <div className="register">
             <h1 className="reg">New Card</h1>
@@ -75,9 +75,7 @@ class NewCard extends Component {
               <button type="submit">Register</button>
 
               {this.state.cardCreate ? (
-                <div style={{ color: "white" }}>{`La card ${
-                  this.state.title
-                } a été crée`}</div>
+                <div style={{ color: "white" }}>La card a été crée</div>
               ) : (
                 ""
               )}

@@ -21,7 +21,9 @@ class Login extends Component {
         console.log(response);
         localStorage.setItem("token", response.data.token);
         const decoded = jwt_decode(localStorage.getItem("token"));
+        console.log(decoded);
         localStorage.setItem("isAdmin", decoded.admin);
+        localStorage.setItem("username", decoded.username);
         this.setState({ redirect: true });
         this.state.redirect && localStorage.getItem("isAdmin") === "true"
           ? this.props.history.push("/all")
