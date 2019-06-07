@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Layout, Header, Navigation } from "react-mdl";
+import { Link } from 'react-router-dom';
 
 export default class AdminLayout extends Component {
   logout() {
@@ -32,15 +33,15 @@ export default class AdminLayout extends Component {
               title={
                 <span>
                   <span style={{ color: "#ddd" }}>Prizoners / </span>
-                  <strong>Welcome Username </strong>
+                  <strong>Welcome {localStorage.username}</strong>
                 </span>
               }
             >
               <Navigation>
-                <a href="/newcard">Add Card</a>
-                <a href="/" onClick={this.logout}>
+                <Link to="/newcard">Add Card</Link>
+                <Link to="/mycards" onClick={this.logout}>
                   Logout
-                </a>
+                </Link>
               </Navigation>
             </Header>
           </Layout>
