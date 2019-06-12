@@ -5,6 +5,8 @@ import AdminLayout from "../ADMINLAYOUT/AdminLayout";
 import "./AdminCards.css";
 import axios from "axios";
 
+import {DragDropContext, Droppable} from 'react-beautiful-dnd';
+
 class AdminCards extends Component {
   state = {
     cards: []
@@ -42,6 +44,10 @@ class AdminCards extends Component {
         console.log(error);
       });
   };
+
+  onDragEnd = result => {
+
+  }
 
   render() {
     // console.log("admincard", this.state)
@@ -101,6 +107,8 @@ class AdminCards extends Component {
       <div>
         <AdminLayout />
         <h2>Admin Cards</h2>
+        <DragDropContext
+        onDragEnd={this.onDragEnd}>
         <div
           style={{
             width: "90%",
@@ -111,6 +119,7 @@ class AdminCards extends Component {
           }}
         >
           <Grid className="demo-grid-ruler" style={{ padding: "0" }}>
+            <Droppable droppableId={this.props.column.id}>
             <Cell
               className="column"
               col={3}
@@ -119,6 +128,8 @@ class AdminCards extends Component {
               Valider
               {validate}
             </Cell>
+            </Droppable>
+            <Droppable>
             <Cell
               className="column"
               col={3}
@@ -127,6 +138,8 @@ class AdminCards extends Component {
               To Do
               {todo}
             </Cell>
+            </Droppable>
+            <Droppable>
             <Cell
               className="column"
               col={3}
@@ -135,6 +148,8 @@ class AdminCards extends Component {
               Doing
               {doing}
             </Cell>
+            </Droppable>
+            <Droppable>
             <Cell
               className="column"
               col={3}
@@ -143,8 +158,10 @@ class AdminCards extends Component {
               Done
               {done}
             </Cell>
+            </Droppable>
           </Grid>
         </div>
+        </DragDropContext>
       </div>
     );
   }

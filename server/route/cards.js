@@ -51,7 +51,10 @@ app.post("/add", auth, (req, res) => {
       user: req.user.id,
       title: req.body.title,
       text: req.body.text
-    }).save()
+    })
+    .save()
+    .then(result => res.json(result))
+    .catch(err => res.json(err));
 });
 
 //////////////////

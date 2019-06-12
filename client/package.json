@@ -6,6 +6,7 @@
     "axios": "^0.18.0",
     "jwt-decode": "^2.2.0",
     "react": "^16.8.1",
+    "react-beautiful-dnd": "^11.0.4",
     "react-dom": "^16.8.1",
     "react-mdl": "^1.11.0",
     "react-router-dom": "^4.3.1",
