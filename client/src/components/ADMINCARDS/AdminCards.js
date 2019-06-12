@@ -119,46 +119,50 @@ class AdminCards extends Component {
           }}
         >
           <Grid className="demo-grid-ruler" style={{ padding: "0" }}>
-            <Droppable droppableId={this.props.column.id}>
+            {/* <Droppable droppableId={this.props.column.id}> */}
             <Cell
               className="column"
+              id="1"
               col={3}
               style={{ minWidth: "270px", margin: "20px auto" }}
             >
               Valider
               {validate}
             </Cell>
-            </Droppable>
-            <Droppable>
+            {/* </Droppable>
+            <Droppable> */}
             <Cell
               className="column"
+              id="2"
               col={3}
               style={{ minWidth: "270px", margin: "20px auto" }}
             >
               To Do
               {todo}
             </Cell>
-            </Droppable>
-            <Droppable>
+            {/* </Droppable>
+            <Droppable> */}
             <Cell
               className="column"
+              id="3"
               col={3}
               style={{ minWidth: "270px", margin: "20px auto" }}
             >
               Doing
               {doing}
             </Cell>
-            </Droppable>
-            <Droppable>
+            {/* </Droppable>
+            <Droppable> */}
             <Cell
               className="column"
+              id="4"
               col={3}
               style={{ minWidth: "270px", margin: "20px auto" }}
             >
               Done
               {done}
             </Cell>
-            </Droppable>
+            {/* </Droppable> */}
           </Grid>
         </div>
         </DragDropContext>
