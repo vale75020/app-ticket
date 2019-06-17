@@ -2,8 +2,9 @@ import React, { Component } from "react";
 //import cardTab from "../cardTab";
 import UserCard from "../USERCARD/UserCard";
 import { Grid, Cell } from "react-mdl";
-import UserLayout from "../USERLAYOUT/UserLayout";
+// import UserLayout from "../USERLAYOUT/UserLayout";
 import axios from "axios";
+import UserLayout2 from '../UserLayout2'
 
 export default class UserCards extends Component {
   state = {
@@ -66,7 +67,7 @@ export default class UserCards extends Component {
     ));
     return (
       <div>
-        <UserLayout />
+        <UserLayout2 />
         <h1 style={{ fontFamily: "Permanent Marker, cursive" }}>
           User Cards
         </h1>
