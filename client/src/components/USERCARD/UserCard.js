@@ -16,7 +16,7 @@ class UserCard extends Component {
   };
   
   render() {
-    const { title, text, status ,id } = this.props;
+    const { title, text, status, id } = this.props;
     const mystyle = this.state.isOpen
       ? { width: "100%", height: "auto", marginTop: "20px" }
       : { width: "100%", height: "auto", maxHeight: "300px", marginTop: "20px" };

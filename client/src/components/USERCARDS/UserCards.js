@@ -11,7 +11,7 @@ export default class UserCards extends Component {
     isUser: false
   };
 
-  componentDidMount() {
+  componentWillMount() {
     axios
       .get("http://localhost:3333/mycards")
       .then(response => {
@@ -26,10 +26,24 @@ export default class UserCards extends Component {
       });
   }
 
+  // handleDelete = id => {
+  //   alert("card deleted");
+  //   const cards = this.state.cards.filter(card => card.id !== id);
+  //   this.setState({ cards: cards });
+  // };
+
   handleDelete = id => {
-    alert("card deleted");
-    const cards = this.state.cards.filter(card => card.id !== id);
-    this.setState({ cards: cards });
+    console.log(id);
+    axios
+      .delete(`http://localhost:3333/${id}`, {})
+      .then(response => {
+        alert("card deleted");
+        // this.setState({ cards: this.state.cards })
+        this.componentWillMount();
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   render() {
@@ -41,7 +55,7 @@ export default class UserCards extends Component {
       >
         <div style={{ display: "flex", flexWrap: "wrap", width: "100%" }}>
           <UserCard
-            id={card.id}
+            id={card._id}
             title={card.title}
             text={card.text}
             status={card.status}
@@ -54,8 +68,7 @@ export default class UserCards extends Component {
       <div>
         <UserLayout />
         <h1 style={{ fontFamily: "Permanent Marker, cursive" }}>
-          {" "}
-          User Cards{" "}
+          User Cards
         </h1>
         <Grid className="demo-grid-ruler" style={{ padding: 0 }}>
           <div
