@@ -1,10 +1,31 @@
 import React, { Component } from "react";
 //import cardTab from "../cardTab";
 import UserCard from "../USERCARD/UserCard";
-import { Grid, Cell } from "react-mdl";
-// import UserLayout from "../USERLAYOUT/UserLayout";
+import UserLayout from "../USERLAYOUT/UserLayout";
 import axios from "axios";
-import UserLayout2 from '../UserLayout2'
+import styled from "styled-components";
+
+const CellUser = styled.div`
+  width: 320px;
+  margin: 10px auto;
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const GridUser = styled.div`
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  min-width: 300px;
+  margin: 0 auto;
+  width: 90%;
+  margin: 0 5%;
+  justify-content: space-between;
+`;
+
+const Title = styled.h1`
+  font-family: Permanent Marker, cursive;
+`;
 
 export default class UserCards extends Component {
   state = {
@@ -34,7 +55,7 @@ export default class UserCards extends Component {
   // };
 
   handleDelete = id => {
-    console.log(id);
+    //console.log(id);
     axios
       .delete(`http://localhost:3333/${id}`, {})
       .then(response => {
@@ -49,41 +70,21 @@ export default class UserCards extends Component {
 
   render() {
     const displayCards = this.state.cards.map(card => (
-      <Cell
-        key={card._id}
-        style={{ minWidth: "270px", margin: "0 auto" }}
-        col={3}
-      >
-        <div style={{ display: "flex", flexWrap: "wrap", width: "100%" }}>
-          <UserCard
-            id={card._id}
-            title={card.title}
-            text={card.text}
-            status={card.status}
-            onDelete={this.handleDelete}
-          />
-        </div>
-      </Cell>
+      <CellUser>
+        <UserCard
+          id={card._id}
+          title={card.title}
+          text={card.text}
+          status={card.status}
+          onDelete={this.handleDelete}
+        />
+      </CellUser>
     ));
     return (
       <div>
-        <UserLayout2 />
-        <h1 style={{ fontFamily: "Permanent Marker, cursive" }}>
-          User Cards
-        </h1>
-        <Grid className="demo-grid-ruler" style={{ padding: 0 }}>
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              width: "90%",
-              margin: "0 5%",
-              justifyContent: "space-between"
-            }}
-          >
-            {displayCards}
-          </div>
-        </Grid>
+        <UserLayout />
+        <Title>User Cards</Title>
+        <GridUser>{displayCards}</GridUser>
       </div>
     );
   }

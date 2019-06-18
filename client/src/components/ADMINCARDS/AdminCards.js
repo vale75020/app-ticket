@@ -1,11 +1,34 @@
 import React, { Component } from "react";
-import { Grid, Cell } from "react-mdl";
 import UserCard from "../USERCARD/UserCard";
 import AdminLayout from "../ADMINLAYOUT/AdminLayout";
 import "./AdminCards.css";
 import axios from "axios";
+import styled from "styled-components";
 
-import {DragDropContext, Droppable} from 'react-beautiful-dnd';
+
+// import { DragDropContext, Droppable} from "react-beautiful-dnd";
+
+const Container = styled.div`
+  width: "90%";
+  height: auto;
+  font-size: 20px;
+  padding: 0;
+  margin: 20px auto;
+`;
+
+const Grid = styled.div`
+  padding: 0;
+  display:flex;
+  flex-wrap: wrap;
+  min-width:300px;
+  margin: 0 auto;
+`;
+
+const Cell = styled.div`
+  min-width: 280px;
+  width: 22%;
+  margin: 10px auto;
+`;
 
 class AdminCards extends Component {
   state = {
@@ -45,12 +68,9 @@ class AdminCards extends Component {
       });
   };
 
-  onDragEnd = result => {
-
-  }
+  // onDragEnd = result => {};
 
   render() {
-    // console.log("admincard", this.state)
     const validate = this.state.cards
       .filter(card => card.status === "to validate")
       .map(card => (
@@ -106,66 +126,37 @@ class AdminCards extends Component {
     return (
       <div>
         <AdminLayout />
-        <h2>Admin Cards</h2>
-        <DragDropContext
-        onDragEnd={this.onDragEnd}>
-        <div
-          style={{
-            width: "90%",
-            height: "auto",
-            fontSize: "20px",
-            padding: "0",
-            margin: "20px auto"
-          }}
-        >
-          <Grid className="demo-grid-ruler" style={{ padding: "0" }}>
-            {/* <Droppable droppableId={this.props.column.id}> */}
-            <Cell
-              className="column"
-              id="1"
-              col={3}
-              style={{ minWidth: "270px", margin: "20px auto" }}
-            >
-              Valider
-              {validate}
-            </Cell>
-            {/* </Droppable>
+        <h2 style={{ fontFamily: "Permanent Marker, cursive" }}>Admin Cards</h2>
+        {/* <DragDropContext onDragEnd={this.onDragEnd}> */}
+          <Container>
+            <Grid>
+              {/* <Droppable> */}
+              <Cell className="column" id="1">
+                Valider
+                {validate}
+              </Cell>
+              {/*</Droppable>
+             <Droppable>  */}
+              <Cell className="column" id="2">
+                To Do
+                {todo}
+              </Cell>
+              {/* </Droppable>
             <Droppable> */}
-            <Cell
-              className="column"
-              id="2"
-              col={3}
-              style={{ minWidth: "270px", margin: "20px auto" }}
-            >
-              To Do
-              {todo}
-            </Cell>
-            {/* </Droppable>
+              <Cell className="column" id="3">
+                Doing
+                {doing}
+              </Cell>
+              {/* </Droppable>
             <Droppable> */}
-            <Cell
-              className="column"
-              id="3"
-              col={3}
-              style={{ minWidth: "270px", margin: "20px auto" }}
-            >
-              Doing
-              {doing}
-            </Cell>
-            {/* </Droppable>
-            <Droppable> */}
-            <Cell
-              className="column"
-              id="4"
-              col={3}
-              style={{ minWidth: "270px", margin: "20px auto" }}
-            >
-              Done
-              {done}
-            </Cell>
-            {/* </Droppable> */}
-          </Grid>
-        </div>
-        </DragDropContext>
+              <Cell className="column" id="4">
+                Done
+                {done}
+              </Cell>
+              {/* </Droppable> */}
+            </Grid>
+          </Container>
+        {/* </DragDropContext> */}
       </div>
     );
   }
