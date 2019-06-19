@@ -1,9 +1,70 @@
 import React, { Component } from "react";
-import { Card, CardTitle, CardText, CardActions, Button } from "react-mdl";
-import "./UserCard.css";
 import cardTab from "../cardTab";
+import styled from "styled-components";
 
-class UserCard extends Component {
+// import { Draggable } from "react-beautiful-dnd";
+
+const Card = styled.div`
+  width: 100%;
+  height: auto;
+  margin: 10px auto;
+  border: 1px solid white;
+`;
+
+const CardTitle = styled.h2`
+  background-color: #2c3e50;
+  width: 100%;
+  margin: 0 auto;
+  font-size: 16px;
+  color: white;
+`;
+
+const CardTitle2 = styled(CardTitle)`
+  background-color: #e67e22;
+`;
+
+const TextSmall = styled.div`
+  width: 90%;
+  color: black;
+  font-size: 12px;
+  background-color: white;
+  max-height: 50px;
+  height: auto;
+  overflow: hidden;
+  padding: 5%;
+`;
+
+const TextLarge = styled(TextSmall)`
+height: auto;
+max-height: min-content;
+`
+
+const CardActions = styled.div`
+  background-color: #2c3e50;
+  color: white;
+  bottom: 0;
+  padding: 5px;
+  display: flex;
+  justify-content: space-around;
+`;
+
+const ButtonShow = styled.div`
+  color: white;
+  border: 3px solid white;
+  border-radius: 10px;
+  margin: 0 5px;
+  width: 40%;
+  height: 40px;
+  font-size: 18px;
+  line-height: 40px;
+`;
+
+const ButtonDelete = styled(ButtonShow)`
+  color: red;
+  border: 3px solid red;
+`;
+
+class UserCardStyled extends Component {
   state = {
     isOpen: false,
     cards: cardTab
@@ -14,78 +75,27 @@ class UserCard extends Component {
       isOpen: !this.state.isOpen
     });
   };
-  
+
   render() {
     const { title, text, status, id } = this.props;
-    const mystyle = this.state.isOpen
-      ? { width: "100%", height: "auto", marginTop: "20px" }
-      : { width: "100%", height: "auto", maxHeight: "300px", marginTop: "20px" };
+    const CardText = this.state.isOpen ? TextLarge : TextSmall;
 
     return (
-      <Card shadow={5} style={mystyle}>
-        <CardTitle style={{ backgroundColor: "#2c3e50", color: "white" }}>
-          <h2
-            style={{
-              width: "100%",
-              margin: "0",
-              lineHeight: "inherit",
-              fontSize: "16px"
-            }}
-          >
-            {title}
-          </h2>
-        </CardTitle>
-        <CardTitle style={{ backgroundColor: "#e67e22", color: "black" }}>
-          <h2
-            style={{
-              margin: "0 auto",
-              lineHeight: "inherit",
-              fontSize: "14px"
-            }}
-          >
-            {status}
-          </h2>
-        </CardTitle>
-        <CardText
-          style={{
-            padding: "inherit",
-            width: "100%",
-            height: "100%",
-            color: "black",
-            fontSize: "12px"
-          }}
-        >
-          {text}
-        </CardText>
-        <CardActions
-          border
-          style={{
-            backgroundColor: "#2c3e50",
-            color: "white",
-            bottom: 0,
-            position: "absolute",
-            display: "flex",
-            justifyContent: "space-around"
-          }}
-        >
-          <Button
-            colored
-            style={{ color: "white", border: "1px solid white", margin: "0 5px" }}
-            onClick={this.showDetails}
-          >
-            View
-          </Button>
-          <Button
-            colored
-            style={{ color: "red", border: "1px solid red",  margin: "0 5px" }}
-            onClick={() => this.props.onDelete(id)}
-          >
+      // <Draggable>
+      <Card>
+        <CardTitle>{title}</CardTitle>
+        <CardTitle2>{status}</CardTitle2>
+        <CardText>{text}</CardText>
+        <CardActions>
+          <ButtonShow onClick={this.showDetails}>View</ButtonShow>
+          <ButtonDelete onClick={() => this.props.onDelete(id)}>
             Remove
-          </Button>
+          </ButtonDelete>
         </CardActions>
       </Card>
+      // </Draggable>
     );
   }
 }
 
-export default UserCard;
+export default UserCardStyled;
