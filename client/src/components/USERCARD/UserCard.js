@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import cardTab from "../cardTab";
 import styled from "styled-components";
 
 // import { Draggable } from "react-beautiful-dnd";
@@ -7,8 +6,10 @@ import styled from "styled-components";
 const Card = styled.div`
   width: 100%;
   height: auto;
-  margin: 10px auto;
+  /*margin: 10px auto;*/
   border: 1px solid white;
+  border-radius: 15px;
+  overflow: hidden;
 `;
 
 const CardTitle = styled.h2`
@@ -29,7 +30,7 @@ const TextSmall = styled.div`
   color: black;
   font-size: 12px;
   background-color: white;
-  max-height: 50px;
+  max-height: ${({isOpen }) => isOpen ? "500px" : "50px"};
   height: auto;
   overflow: hidden;
   padding: 5%;
@@ -68,7 +69,6 @@ const ButtonDelete = styled(ButtonShow)`
 class UserCardStyled extends Component {
   state = {
     isOpen: false,
-    cards: cardTab
   };
 
   showDetails = () => {
@@ -79,14 +79,15 @@ class UserCardStyled extends Component {
 
   render() {
     const { title, text, status, id } = this.props;
-    const CardText = this.state.isOpen ? TextLarge : TextSmall;
+    const CardText = TextSmall;
+    console.log(id, this.state)
 
     return (
       // <Draggable>
       <Card>
         <CardTitle>{title}</CardTitle>
         <CardTitle2>{status}</CardTitle2>
-        <CardText>{text}</CardText>
+        <CardText isOpen={this.state.isOpen}>{text}</CardText>
         <CardActions>
           <ButtonShow onClick={this.showDetails}>View</ButtonShow>
           <ButtonDelete onClick={() => this.props.onDelete(id)}>

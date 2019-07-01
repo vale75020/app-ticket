@@ -8,8 +8,8 @@ import styled from "styled-components";
 const CellUser = styled.div`
   width: 320px;
   margin: 10px auto;
-  display: flex;
-  flex-wrap: wrap;
+  /*display: flex;
+  flex-wrap: wrap;*/
 `;
 
 const GridUser = styled.div`
