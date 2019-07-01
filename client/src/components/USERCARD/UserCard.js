@@ -17,6 +17,7 @@ const CardTitle = styled.h2`
   margin: 0 auto;
   font-size: 16px;
   color: white;
+  padding: 5px 0;
 `;
 
 const CardTitle2 = styled(CardTitle)`

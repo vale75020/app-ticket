@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 //import cardTab from "../cardTab";
-import UserCardStyled from "../USERCARD/UserCard";
+import UserCard from "../USERCARD/UserCard";
 import UserLayout from "../USERLAYOUT/UserLayout";
 import axios from "axios";
 import styled from "styled-components";
@@ -71,7 +71,7 @@ export default class UserCards extends Component {
   render() {
     const displayCards = this.state.cards.map(card => (
       <CellUser>
-        <UserCardStyled
+        <UserCard
           id={card._id}
           title={card.title}
           text={card.text}
