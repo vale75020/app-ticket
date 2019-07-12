@@ -6,7 +6,6 @@ import styled from "styled-components";
 const Card = styled.div`
   width: 100%;
   height: auto;
-  /*margin: 10px auto;*/
   border: 1px solid white;
   border-radius: 15px;
   overflow: hidden;
@@ -25,7 +24,7 @@ const CardTitle2 = styled(CardTitle)`
   background-color: #e67e22;
 `;
 
-const TextSmall = styled.div`
+const CardText = styled.div`
   width: 90%;
   color: black;
   font-size: 12px;
@@ -35,11 +34,6 @@ const TextSmall = styled.div`
   overflow: hidden;
   padding: 5%;
 `;
-
-const TextLarge = styled(TextSmall)`
-height: auto;
-max-height: min-content;
-`
 
 const CardActions = styled.div`
   background-color: #2c3e50;
@@ -79,8 +73,6 @@ class UserCardStyled extends Component {
 
   render() {
     const { title, text, status, id } = this.props;
-    const CardText = TextSmall;
-    console.log(id, this.state)
 
     return (
       // <Draggable>
