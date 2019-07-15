@@ -6,8 +6,6 @@ import axios from "axios";
 import styled from "styled-components";
 
 
-// import { DragDropContext, Droppable} from "react-beautiful-dnd";
-
 const Container = styled.div`
   width: "90%";
   height: auto;
@@ -18,9 +16,9 @@ const Container = styled.div`
 
 const Grid = styled.div`
   padding: 0;
-  display:flex;
+  display: flex;
   flex-wrap: wrap;
-  min-width:300px;
+  min-width: 300px;
   margin: 0 auto;
 `;
 
@@ -32,7 +30,8 @@ const Cell = styled.div`
 
 class AdminCards extends Component {
   state = {
-    cards: []
+    cards: [],
+    statuses : ["to validate", "to do", "doing", "done"]
   };
 
   componentWillMount() {
@@ -49,12 +48,6 @@ class AdminCards extends Component {
       });
   }
 
-  // handleDelete = id => {
-  //   alert("card deleted")
-  //   const cards = this.state.cards.filter(card => card._id !== id);
-  //   this.setState({ cards: cards });
-  // };
-
   handleDelete = id => {
     console.log(id);
     axios
@@ -68,95 +61,40 @@ class AdminCards extends Component {
       });
   };
 
-  // onDragEnd = result => {};
-
   render() {
-    const validate = this.state.cards
-      .filter(card => card.status === "to validate")
-      .map(card => (
-        <UserCard
-          key={card._id}
-          id={card._id}
-          title={card.title}
-          text={card.text}
-          status={card.status}
-          onDelete={this.handleDelete}
-        />
-      ));
-
-    const todo = this.state.cards
-      .filter(card => card.status === "to do")
-      .map(card => (
-        <UserCard
-          key={card._id}
-          id={card._id}
-          title={card.title}
-          text={card.text}
-          status={card.status}
-          onDelete={this.handleDelete}
-        />
-      ));
-
-    const doing = this.state.cards
-      .filter(card => card.status === "doing")
-      .map(card => (
-        <UserCard
-          key={card._id}
-          id={card._id}
-          title={card.title}
-          text={card.text}
-          status={card.status}
-          onDelete={this.handleDelete}
-        />
-      ));
-
-    const done = this.state.cards
-      .filter(card => card.status === "done")
-      .map(card => (
-        <UserCard
-          key={card._id}
-          id={card._id}
-          title={card.title}
-          text={card.text}
-          status={card.status}
-          onDelete={this.handleDelete}
-        />
-      ));
+    const displayStatus = {};
+    this.state.statuses.forEach(status => {
+      displayStatus[status] = this.state.cards
+        .filter(card => card.status === status)
+        .map(card => (
+          <UserCard
+            key={card._id}
+            id={card._id}
+            title={card.title}
+            text={card.text}
+            status={card.status}
+            onDelete={this.handleDelete}
+          />
+        ));
+    });
 
     return (
       <div>
         <AdminLayout />
         <h2 style={{ fontFamily: "Permanent Marker, cursive" }}>Admin Cards</h2>
-        {/* <DragDropContext onDragEnd={this.onDragEnd}> */}
-          <Container>
-            <Grid>
-              {/* <Droppable> */}
-              <Cell className="column" id="1">
-                Valider
-                {validate}
-              </Cell>
-              {/*</Droppable>
-             <Droppable>  */}
-              <Cell className="column" id="2">
-                To Do
-                {todo}
-              </Cell>
-              {/* </Droppable>
-            <Droppable> */}
-              <Cell className="column" id="3">
-                Doing
-                {doing}
-              </Cell>
-              {/* </Droppable>
-            <Droppable> */}
-              <Cell className="column" id="4">
-                Done
-                {done}
-              </Cell>
-              {/* </Droppable> */}
-            </Grid>
-          </Container>
-        {/* </DragDropContext> */}
+
+        <Container>
+          <Grid>
+          {this.state.statuses.map((status, index) => {
+              return (
+              <Cell className="column" id={index}>
+                {status.charAt(0).toUpperCase() + status.slice(1)}
+                {displayStatus[status]}
+             </Cell>
+            )})
+          }
+          </Grid>
+        </Container>
       </div>
     );
   }
