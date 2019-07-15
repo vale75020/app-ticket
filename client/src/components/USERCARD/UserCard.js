@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
-// import { Draggable } from "react-beautiful-dnd";
 
 const Card = styled.div`
   width: 100%;
@@ -72,22 +71,20 @@ class UserCardStyled extends Component {
   };
 
   render() {
-    const { title, text, status, id } = this.props;
+    const { title, text, status, id, onDelete, changeStatus } = this.props;
 
     return (
-      // <Draggable>
       <Card>
         <CardTitle>{title}</CardTitle>
-        <CardTitle2>{status}</CardTitle2>
+        <CardTitle2 onClick={() => {changeStatus(id)}}>{status}</CardTitle2>
         <CardText isOpen={this.state.isOpen}>{text}</CardText>
         <CardActions>
           <ButtonShow onClick={this.showDetails}>View</ButtonShow>
-          <ButtonDelete onClick={() => this.props.onDelete(id)}>
+          <ButtonDelete onClick={() => onDelete(id)}>
             Remove
           </ButtonDelete>
         </CardActions>
       </Card>
-      // </Draggable>
     );
   }
 }

@@ -61,6 +61,16 @@ class AdminCards extends Component {
       });
   };
 
+  changeStatus = (cardId) => {
+
+    this.setState({
+      cards: this.state.cards.map(x => {
+        const previousIndex = this.state.statuses.findIndex(y => y === x.status)
+        return cardId === x._id? { ...x, status: this.state.statuses[(previousIndex+1)%4] }:x 
+      })
+    })
+  };
+
   render() {
     const displayStatus = {};
     this.state.statuses.forEach(status => {
@@ -74,6 +84,7 @@ class AdminCards extends Component {
             text={card.text}
             status={card.status}
             onDelete={this.handleDelete}
+            changeStatus={this.changeStatus}
           />
         ));
     });
