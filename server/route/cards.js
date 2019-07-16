@@ -78,6 +78,7 @@ app.put("/:id", auth, (req, res) => {
   });
 });
 
+
 // Delete
 app.delete("/:id", (req, res) => {
   Card.findOneAndDelete({ _id: req.params.id }, (err, card) => {

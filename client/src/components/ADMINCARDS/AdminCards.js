@@ -68,8 +68,9 @@ class AdminCards extends Component {
         const previousIndex = this.state.statuses.findIndex(y => y === x.status)
         return cardId === x._id? { ...x, status: this.state.statuses[(previousIndex+1)%4] }:x 
       })
-    })
+    }, () => { axios.put this.state })
   };
+
 
   render() {
     const displayStatus = {};

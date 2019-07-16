@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
-
 const Card = styled.div`
   width: 100%;
   height: auto;
@@ -28,7 +27,7 @@ const CardText = styled.div`
   color: black;
   font-size: 12px;
   background-color: white;
-  max-height: ${({isOpen }) => isOpen ? "500px" : "50px"};
+  max-height: ${({ isOpen }) => (isOpen ? "500px" : "50px")};
   height: auto;
   overflow: hidden;
   padding: 5%;
@@ -61,7 +60,7 @@ const ButtonDelete = styled(ButtonShow)`
 
 class UserCardStyled extends Component {
   state = {
-    isOpen: false,
+    isOpen: false
   };
 
   showDetails = () => {
@@ -71,18 +70,19 @@ class UserCardStyled extends Component {
   };
 
   render() {
+    console.log("local storage isAdmin", !!(localStorage.getItem("isAdmin")==="true"));
     const { title, text, status, id, onDelete, changeStatus } = this.props;
 
     return (
       <Card>
         <CardTitle>{title}</CardTitle>
-        <CardTitle2 onClick={() => {changeStatus(id)}}>{status}</CardTitle2>
+        {localStorage.getItem("isAdmin") === "true"
+        ? (<CardTitle2 onClick={() => {changeStatus(id);}}>{status}</CardTitle2>) 
+        : (<CardTitle2>{status}</CardTitle2>)}
         <CardText isOpen={this.state.isOpen}>{text}</CardText>
         <CardActions>
           <ButtonShow onClick={this.showDetails}>View</ButtonShow>
-          <ButtonDelete onClick={() => onDelete(id)}>
-            Remove
-          </ButtonDelete>
+          <ButtonDelete onClick={() => onDelete(id)}>Remove</ButtonDelete>
         </CardActions>
       </Card>
     );
