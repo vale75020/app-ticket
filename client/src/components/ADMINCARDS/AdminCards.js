@@ -68,7 +68,15 @@ class AdminCards extends Component {
         const previousIndex = this.state.statuses.findIndex(y => y === x.status)
         return cardId === x._id? { ...x, status: this.state.statuses[(previousIndex+1)%4] }:x 
       })
-    }, () => { axios.put this.state })
+    })  
+    //  , () => {axios.put(`http://localhost:3333/id`, { status : this.state.statutes })
+  //   .then(response => {
+  //     alert("card updated");
+  //   })
+  //   .catch(error => {
+  //     console.log(error);
+  //   });
+  // })
   };
 
 
