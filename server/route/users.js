@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 app.post("/register", (req, res) => {
   // creer un nouveau utilisateur
   if (!req.body.username || !req.body.password)
-    res.status(412).send("ENVOIE MOI MES PARAMETERES");
+    res.status(412).send("PARAMETERES Requis");
   User.findOne({
     username: req.body.username
   }).then(user => {

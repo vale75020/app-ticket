@@ -59,17 +59,21 @@ app.post("/add", auth, (req, res) => {
 
 // modify by :id
 app.put("/:id", auth, (req, res) => {
-  const cardField = {};
-  cardField.title = req.body.title;
-  cardField.text = req.body.text;
+  const { title, text, status } = req.body;
 
-  Card.findOne({ _id: req.params.id }).then(card => {
+  Card.findOne({ _id: req.params.id })
+  .then(foundCard => {
+    const newCard = foundCard 
+    if (req.user.admin && status) {
+      newCard.status = status
+    }
     if (req.user.admin || card.user == req.user.id) {
       Card.findOneAndUpdate(
         { _id: req.params.id },
-        { $set: cardField },
-        { new: true }
-      ).then(card => res.json(card));
+        { $set: newCard }
+      ).then(updatedCard => {
+        res.json(updatedCard)
+      });
     } else {
       res.json({
         msg: "Impossible de modifier la carte d'un autre utilisateur"
@@ -77,6 +81,27 @@ app.put("/:id", auth, (req, res) => {
     }
   });
 });
+
+// modify by :id
+// app.put("/:id", auth, (req, res) => {
+//   const cardField = {};
+//   cardField.title = req.body.title;
+//   cardField.text = req.body.text;
+
+//   Card.findOne({ _id: req.params.id }).then(card => {
+//     if (req.user.admin || card.user == req.user.id) {
+//       Card.findOneAndUpdate(
+//         { _id: req.params.id },
+//         { $set: cardField },
+//         { new: true }
+//       ).then(card => res.json(card));
+//     } else {
+//       res.json({
+//         msg: "Impossible de modifier la carte d'un autre utilisateur"
+//       });
+//     }
+//   });
+// });
 
 
 // Delete
