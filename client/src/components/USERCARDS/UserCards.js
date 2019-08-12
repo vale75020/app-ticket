@@ -62,8 +62,9 @@ export default class UserCards extends Component {
 
   render() {
     const displayCards = this.state.cards.map(card => (
-      <CellUser>
+      <CellUser key={card._id}>
         <UserCard
+          key={card._id}
           id={card._id}
           title={card.title}
           text={card.text}

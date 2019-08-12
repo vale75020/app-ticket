@@ -112,7 +112,7 @@ class AdminCards extends Component {
           <Grid>
           {this.state.statuses.map((status, index) => {
               return (
-              <Cell className="column" id={index}>
+              <Cell key={index} className="column" id={index}>
                 {status.charAt(0).toUpperCase() + status.slice(1)}
                 {displayStatus[status]}
              </Cell>
