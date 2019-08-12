@@ -6,6 +6,7 @@ import axios from "axios";
 import styled from "styled-components";
 
 
+
 const Container = styled.div`
   width: "90%";
   height: auto;
@@ -75,7 +76,7 @@ class AdminCards extends Component {
       axios
       .put(`http://localhost:3333/${cardId}`, { status : statusCard  })
       .then(response => {
-        console.log("card updated posted to back, la réponse", response);
+        console.log("card updated posted to back, response", response);
       })
       .catch(error => {
         console.log(error);

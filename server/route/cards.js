@@ -19,7 +19,7 @@ app.get("/all", auth, (req, res) => {
   }
 });
 
-// Card of user
+// User cards
 app.get("/mycards", auth, (req, res) => {
   Card.find({ user: req.user.id })
     .populate("user", ["username"])
@@ -32,7 +32,6 @@ app.get("/mycards", auth, (req, res) => {
 // Find card by id
 app.get("/:id", auth, (req, res) => {
   Card.findOne({ _id: req.params.id }, (err, card) => {
-    // Pourquoi ca ne marche pas avec un === ?
     if (req.user.admin || req.user.id == card.user) {
       if (err) console.log(err);
       res.json(card);
@@ -76,38 +75,16 @@ app.put("/:id", auth, (req, res) => {
       });
     } else {
       res.json({
-        msg: "Impossible de modifier la carte d'un autre utilisateur"
+        msg: "Modify a card of another user is impossible"
       });
     }
   });
 });
 
-// modify by :id
-// app.put("/:id", auth, (req, res) => {
-//   const cardField = {};
-//   cardField.title = req.body.title;
-//   cardField.text = req.body.text;
-
-//   Card.findOne({ _id: req.params.id }).then(card => {
-//     if (req.user.admin || card.user == req.user.id) {
-//       Card.findOneAndUpdate(
-//         { _id: req.params.id },
-//         { $set: cardField },
-//         { new: true }
-//       ).then(card => res.json(card));
-//     } else {
-//       res.json({
-//         msg: "Impossible de modifier la carte d'un autre utilisateur"
-//       });
-//     }
-//   });
-// });
-
-
 // Delete
 app.delete("/:id", (req, res) => {
   Card.findOneAndDelete({ _id: req.params.id }, (err, card) => {
-    if (err) return console.log("Cette card n'exsite pas");
+    if (err) return console.log("This card doesn't exists");
     res.json(card);
   });
 });

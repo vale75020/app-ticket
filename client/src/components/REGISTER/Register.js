@@ -34,7 +34,7 @@ class Register extends Component {
       })
       .catch(err => {
         console.log('in error', err)
-        this.setState({ err: 'L"utilisateur existe deja' });
+        this.setState({ err: 'User already exists' });
       });
   };
 
@@ -72,7 +72,7 @@ class Register extends Component {
 
 
             {this.state.userCreate ? (
-              <div style={{ color: "white" }}>{`L'utilisateur ${this.state.userCreate} a été crée`}</div>
+              <div style={{ color: "white" }}>{`User ${this.state.userCreate} created`}</div>
             ) : ''}
             
             {this.state.err ? (

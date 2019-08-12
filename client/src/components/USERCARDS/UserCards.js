@@ -8,8 +8,6 @@ import styled from "styled-components";
 const CellUser = styled.div`
   width: 320px;
   margin: 10px auto;
-  /*display: flex;
-  flex-wrap: wrap;*/
 `;
 
 const GridUser = styled.div`
@@ -47,12 +45,6 @@ export default class UserCards extends Component {
         console.log(error);
       });
   }
-
-  // handleDelete = id => {
-  //   alert("card deleted");
-  //   const cards = this.state.cards.filter(card => card.id !== id);
-  //   this.setState({ cards: cards });
-  // };
 
   handleDelete = id => {
     //console.log(id);

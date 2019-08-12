@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 app.post("/register", (req, res) => {
   // creer un nouveau utilisateur
   if (!req.body.username || !req.body.password)
-    res.status(412).send("PARAMETERES Requis");
+    res.status(412).send("Enter Username and Password");
   User.findOne({
     username: req.body.username
   }).then(user => {
@@ -17,7 +17,7 @@ app.post("/register", (req, res) => {
       password: req.body.password
     });
     user
-      ? res.status(400).json({ username: "L'username existe deja !" })
+      ? res.status(400).json({ username: "Username already exists!" })
       : bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(newUser.password, salt, (err, hash) => {
             if (err) console.log(err);
@@ -39,7 +39,7 @@ app.post("/login", (req, res) => {
     //console.log(user);
     if (!user) {
       return res.status(404).json({
-        username: "Ce compte n'existe pas !"
+        username: "This account doesn't exists!"
       });
     }
     bcrypt.compare(req.body.password, user.password).then(isMatch => {

@@ -20,6 +20,7 @@ const CardTitle = styled.h2`
 
 const CardTitle2 = styled(CardTitle)`
   background-color: #e67e22;
+  text-transform: uppercase;
 `;
 
 const CardText = styled.div`
@@ -77,7 +78,7 @@ class UserCardStyled extends Component {
       <Card>
         <CardTitle>{title}</CardTitle>
         {localStorage.getItem("isAdmin") === "true"
-        ? (<CardTitle2 onClick={() => {changeStatus(id);}}>{status}</CardTitle2>) 
+        ? (<CardTitle2 onClick={() => {changeStatus(id);}}>{status}<img src="/images/arrow.svg" alt="arrow" style={{height:"14px",marginLeft:"20px"}}/></CardTitle2>) 
         : (<CardTitle2>{status}</CardTitle2>)}
         <CardText isOpen={this.state.isOpen}>{text}</CardText>
         <CardActions>
