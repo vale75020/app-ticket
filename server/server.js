@@ -4,6 +4,7 @@ const cards = require("./route/cards.js");
 
 const mongoose = require("mongoose");
 var app = express(); // creation app express
+const PORT = 3333
 
 const cors = require("cors"); // pour eviter que tous puissent taper sur mon API
 
@@ -24,5 +25,5 @@ db.once("open", function() {
 });
 
 app.listen(3333, () => {
-  console.log("listening on port: " + 3333); //utiliser l'app node app.js pour la lancer
+  console.log(`listening on port: ${PORT}`); //utiliser l'app node app.js pour la lancer
 });

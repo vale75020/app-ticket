@@ -7,7 +7,7 @@ export default function NotFound() {
       <h1>404</h1>
       <h2>Page not found</h2>
       <Link to="/">
-        <h4>Retourner sur la page login</h4>
+        <h4>Back to login</h4>
       </Link>
     </div>
   );
