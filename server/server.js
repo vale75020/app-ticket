@@ -4,7 +4,7 @@ const cards = require("./route/cards.js");
 
 const mongoose = require("mongoose");
 var app = express(); // creation app express
-const PORT = 3333
+const PORT = process.env.PORT || 3333
 
 const cors = require("cors"); // pour eviter que tous puissent taper sur mon API
 
@@ -24,6 +24,6 @@ db.once("open", function() {
   console.log("Connecté a MongoDB !");
 });
 
-app.listen(3333, () => {
+app.listen(PORT, () => {
   console.log(`listening on port: ${PORT}`); //utiliser l'app node app.js pour la lancer
 });
