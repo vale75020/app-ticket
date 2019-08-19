@@ -25,12 +25,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/", users);
 app.use("/", cards);
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static( 'client/build' ));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html')); // relative path
-  })
-}
+//if (process.env.NODE_ENV === 'production') {
+  //app.use(express.static( '../client/build' ));
+  //app.get('*', (req, res) => {
+    //res.sendFile(path.join(__dirname, 'client', 'build', 'index.html')); // relative path
+  //})
+//}
 
 
 app.listen(PORT, () => {
